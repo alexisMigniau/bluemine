@@ -1,7 +1,12 @@
 body {
     margin: 0px;
+    height: 100vh;
 }
 
 * {
     font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+#root {
+    height: 100%;
 }

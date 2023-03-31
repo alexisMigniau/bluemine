@@ -5,8 +5,9 @@ const light = {
     errorFade: "#FF9898",
     backgroundMain: "#FFFFFF",
     backgroundSecondary: "#E4EBFA",
-    stroke: "#3E3F4E",
-    textPrimary: "#FFFFFF"
+    grey: "#828FA3",
+    stroke: "#979797",
+    textPrimary: "#000112"
 }
 
 export default light;

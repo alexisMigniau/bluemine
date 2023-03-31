@@ -5,6 +5,7 @@ const dark = {
     errorFade: "#FF9898",
     backgroundMain: "#2B2C37",
     backgroundSecondary: "#20212C",
+    grey: "#828FA3",
     stroke: "#3E3F4E",
     textPrimary: "#FFFFFF"
 }
