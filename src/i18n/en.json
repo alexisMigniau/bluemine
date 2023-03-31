@@ -1,0 +1,11 @@
+{
+    "common": {
+        "translate-button": "EN",
+        "translated-text": "This is english"
+    },
+    "action": {
+        "addNewTask": "Add New Task",
+        "addNewColumn": "Add New Column",
+        "createNewBoard": "Create New Board"
+    }
+}

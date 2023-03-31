@@ -1,0 +1,11 @@
+{
+    "common": {
+        "translate-button": "FR",
+        "translated-text": "C'est du français"
+    },
+    "action": {
+        "addNewTask": "Ajouter une tâche",
+        "addNewColumn": "Ajouter une colonne",
+        "createNewBoard": "Créer un nouveau tableau"
+    }
+}
