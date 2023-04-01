@@ -3,6 +3,8 @@ import styled from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
 import Button from "./basics/button";
 import iconAdd from "../assets/icon-add-task-mobile.svg";
+import { useContext } from "react";
+import { BoardContext } from "../context/boardContext";
 
 const HeaderDiv = styled.div`
     background-color: ${props => props.theme.colors.backgroundMain};
@@ -11,6 +13,7 @@ const HeaderDiv = styled.div`
     align-items: center;
     padding-right: 20px;
     justify-content: flex-start;
+    border-bottom: 1px solid ${props => props.theme.colors.stroke};
 `
 
 const Logo = styled.img`
@@ -37,12 +40,14 @@ function Header() {
 
     const { t } = useTranslation();
 
+    const { currentBoard } = useContext(BoardContext);
+
     return (
         <HeaderDiv>
             <SliderTop>
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
-            <BoardName>Nom du board</BoardName>
+            <BoardName>{currentBoard.name}</BoardName>
             <Button><img src={iconAdd} alt="Plus"/> {t('action.addNewTask')}</Button>
         </HeaderDiv>
     )

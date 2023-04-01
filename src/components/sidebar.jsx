@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
 import Button from "./basics/button";
@@ -6,6 +6,7 @@ import {ReactComponent as BoardLogo} from "../assets/icon-board.svg";
 import {ReactComponent as HideLogo} from "../assets/icon-hide-sidebar.svg";
 import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
 import ThemeSwitch from "./themeSwitch";
+import { BoardContext } from "../context/boardContext";
 
 const Background = styled.div`
     width: ${props => props.expanded ? "299px" : "0px"};
@@ -14,9 +15,9 @@ const Background = styled.div`
     border-right: 1px solid ${props => props.theme.colors.stroke};
     display: flex;
     flex-direction: column;
-    height: calc(100% - 90px);
+    height: calc(100% - 91px);
     margin-bottom: 20px;
-    transition: 0.4s width;
+    transition: 0.4s all;
 `
 const BoardList = styled.div`
     display: flex;
@@ -67,7 +68,7 @@ const ShowButton = styled(Button)`
     bottom: 20px;
     display: flex;
     align-items: center;
-    transition: 0.4s left;
+    transition: 0.4s all;
 `
 
 function Sidebar() {
@@ -75,17 +76,16 @@ function Sidebar() {
     const theme = useTheme()
 
     const [hidden, isHidden] = useState(false);
-    const [currentBoard, setCurrentBoard] = useState('Test')
 
-    const listBoard = ['Test', 'OK', 'Salut']
-
+    const {currentBoard, list, setCurrent} = useContext(BoardContext);
+    
     return (
         <Background expanded={!hidden}>
-            <BoardTitle>{t('common.allBoards')} ( {listBoard.length} )</BoardTitle>
+            <BoardTitle>{t('common.allBoards')} ( {list.length} )</BoardTitle>
             <BoardList>
-                {listBoard && listBoard.map(board => (
-                    <BoardItem key={board} disabled={currentBoard == board} onClick={() => setCurrentBoard(board)}>
-                        <BoardLogo fill={currentBoard == board ? theme.colors.textPrimary : theme.colors.grey}/>
+                {list && list.map(board => (
+                    <BoardItem key={board} disabled={currentBoard.name === board} onClick={() => setCurrent(board)}>
+                        <BoardLogo fill={currentBoard.name === board ? theme.colors.textPrimary : theme.colors.grey}/>
                         {board}
                     </BoardItem>
                 ))}
