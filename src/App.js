@@ -9,12 +9,14 @@ const AppContainer = styled.div`
   height: 100%;
   width: 100%;
   background-color: ${props => props.theme.colors.backgroundSecondary};
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `
 
 const Content = styled.div`
   display: flex;
   height: 100%;
+  max-height: calc(100% - 91px);
 `
 
 function App() {

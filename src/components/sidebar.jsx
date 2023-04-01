@@ -15,9 +15,9 @@ const Background = styled.div`
     border-right: 1px solid ${props => props.theme.colors.stroke};
     display: flex;
     flex-direction: column;
-    height: calc(100% - 91px);
     margin-bottom: 20px;
     transition: 0.4s all;
+    height: 100%;
 `
 const BoardList = styled.div`
     display: flex;

@@ -7,5 +7,8 @@
         "addNewColumn": "Add New Column",
         "createNewBoard": "Create New Board",
         "hideSidebar": "Hide Sidebar"
+    },
+    "task": {
+        "progress": "{{ completed }} of {{ total }} subtasks"
     }
 }
