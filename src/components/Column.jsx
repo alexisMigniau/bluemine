@@ -41,7 +41,7 @@ function Column({index}) {
 
     return (
         <ColumnContainer>
-            <ColumnTitle><Dot color={getColor()}/>{currentBoard.name} ( {currentBoard.columns[index].tasks.length} )</ColumnTitle>
+            <ColumnTitle><Dot color={getColor()}/>{currentBoard.columns[index].name} ( {currentBoard.columns[index].tasks.length} )</ColumnTitle>
             <Droppable droppableId={`${currentBoard.name}-${index}`}>
                 {(provided) => (
                     <ColumnList ref={provided.innerRef} {...provided.droppableProps}>

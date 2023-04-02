@@ -1,14 +1,25 @@
 {
     "common": {
-        "allBoards": "Tous les tableaux"
+        "allBoards": "Tous les tableaux",
+        "required": "Champ requis",
+        "fieldIsRequired": "Ne peut pas être vide"
     },
     "action": {
         "addNewTask": "Ajouter une tâche",
         "addNewColumn": "Ajouter une colonne",
-        "createNewBoard": "Créer un nouveau tableau",
-        "hideSidebar": "Cacher"
+        "hideSidebar": "Cacher",
+        "createBoard": "Créer un tableau" 
     },
     "task": {
         "progress": "{{ completed }} sur {{ total }}"
+    },
+    "board": {
+        "form" : {
+            "addBoard": "Ajouter un tableau",
+            "name" : "Nom",
+            "namePlaceHolder" : "ex. Design Web",
+            "column" : "Colonnes",
+            "columnPlaceHolder" : "ex. En cours"
+        }
     }
 }

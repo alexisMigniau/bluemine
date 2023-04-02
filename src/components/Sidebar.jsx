@@ -5,8 +5,10 @@ import Button from "./basics/Button";
 import {ReactComponent as BoardLogo} from "../assets/icon-board.svg";
 import {ReactComponent as HideLogo} from "../assets/icon-hide-sidebar.svg";
 import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
+import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import ThemeSwitch from "./ThemeSwitch";
 import { BoardContext } from "../context/boardContext";
+import AddBoardModal from "./modal/AddBoardModal";
 
 const Background = styled.div`
     width: ${props => props.expanded ? "299px" : "0px"};
@@ -41,13 +43,17 @@ const BoardItem = styled(Button)`
         background-color: transparent;
         box-shadow: inset 276px 0 0 0 ${props => props.theme.colors.primary};
     }
-    &:hover:enabled {
+    &:hover:enabled, &:focus:enabled {
         background-color: transparent;
         box-shadow: inset 276px 0 0 0 ${props => props.theme.colors.stroke};
     }
     display: flex;
     column-gap: 20px;
     align-items: center;
+`
+
+const AddBoardButton = styled(BoardItem)`
+    color: ${props => props.theme.colors.primary};
 `
 
 const HideButton = styled(BoardItem)`
@@ -75,9 +81,10 @@ function Sidebar() {
     const { t } = useTranslation();
     const theme = useTheme()
 
-    const [hidden, isHidden] = useState(false);
-
     const {currentBoard, list, setCurrent} = useContext(BoardContext);
+
+    const [hidden, isHidden] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     
     return (
         <Background expanded={!hidden}>
@@ -89,10 +96,15 @@ function Sidebar() {
                         {board}
                     </BoardItem>
                 ))}
+                <AddBoardButton onClick={() => setShowModal(true)}>
+                    <AddLogo fill={theme.colors.primary}/> 
+                    {t("action.createBoard")}
+                </AddBoardButton>
             </BoardList>
             <ThemeSwitch/>
             <HideButton size="L" onClick={(e) => isHidden(true)}><HideLogo />{t('action.hideSidebar')}</HideButton>
             <ShowButton size="S" onClick={(e) => isHidden(false)} expanded={hidden}><ShowLogo/></ShowButton>
+            <AddBoardModal show={showModal} onClose={() => setShowModal(false)}></AddBoardModal>
         </Background>
     )
 }

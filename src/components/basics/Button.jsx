@@ -23,7 +23,7 @@ const BasicButton = styled.button`
 // Bouton basique
 // Size = L ou S
 // Type = primary , secondary, error
-function Button({ children, onClick, size = "L", color = "primary", disabled = false, className}) {
+function Button({ children, onClick, size = "L", color = "primary", disabled = false, className, ...props}) {
     return (
         <BasicButton
             onClick={onClick}
@@ -31,6 +31,7 @@ function Button({ children, onClick, size = "L", color = "primary", disabled = f
             color={color}
             disabled={disabled}
             className={className}
+            {...props}
         >
             {children}
         </BasicButton>

@@ -13,7 +13,7 @@ const TaskContainer = styled.div`
     flex-direction: column;
     transition: background-color 0.5s, border-color 0.5s;
     border: 3px solid ${props => props.isDrag ? props.theme.colors.primary : 'transparent'};
-    &:hover {
+    &:hover, &:focus {
         border-color: ${props => props.theme.colors.primary};
         background-color: ${props => props.theme.colors.backgroundSecondary};
     }

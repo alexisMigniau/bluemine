@@ -7,7 +7,8 @@ const dark = {
     backgroundSecondary: "#20212C",
     grey: "#828FA3",
     stroke: "#3E3F4E",
-    textPrimary: "#FFFFFF"
+    textPrimary: "#FFFFFF",
+    green: "#32CD32"
 }
 
 export default dark;

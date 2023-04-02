@@ -1,14 +1,24 @@
 {
     "common": {
-        "allBoards": "All Boards"
+        "allBoards": "All Boards",
+        "required": "Required",
+        "fieldIsRequired": "Can't be empty"
     },
     "action": {
         "addNewTask": "Add New Task",
         "addNewColumn": "Add New Column",
-        "createNewBoard": "Create New Board",
-        "hideSidebar": "Hide Sidebar"
+        "hideSidebar": "Hide Sidebar",
+        "createBoard": "Create New Board" 
     },
     "task": {
         "progress": "{{ completed }} of {{ total }} subtasks"
+    },
+    "board": {
+        "form" : {
+            "name" : "Name",
+            "namePlaceHolder" : "e.g. Web design",
+            "column" : "Columns",
+            "columnPlaceHolder" : "e.g. Todo"
+        }
     }
 }

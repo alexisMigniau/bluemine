@@ -35,25 +35,30 @@ const ModalHeader = styled.div`
     align-items: center;
     align-content: space-around;
     width: 100%;
+    margin-bottom: 20px;
 `
 
 const CloseLogo = styled(AddLogo)`
     rotate: 45deg;
     transition: all 0.5s;
-    scale: 1.5;
-    &:hover {
+    scale: 2.2;
+    &:hover, &:focus {
         rotate: -45deg;
-        scale: 2;
     }
+    cursor: pointer;
 `
 
 function Modal({show, children, title, onClose}) {
 
     const theme = useTheme()
 
+    const handleClickOutside = (e) => {
+        e.stopPropagation();
+    }
+
     return show ? (
-        <Background>
-            <ModalContainer>
+        <Background onClick={onClose}>
+            <ModalContainer onClick={handleClickOutside}>
                 <ModalHeader>
                     <ModalTitle>{title}</ModalTitle>
                     <CloseLogo fill={theme.colors.error} onClick={onClose}/>

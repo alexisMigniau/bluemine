@@ -7,7 +7,8 @@ const light = {
     backgroundSecondary: "#E4EBFA",
     grey: "#828FA3",
     stroke: "#979797",
-    textPrimary: "#000112"
+    textPrimary: "#000112",
+    green: "#32CD32"
 }
 
 export default light;

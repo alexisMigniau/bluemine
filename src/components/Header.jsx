@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, {useTheme} from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
 import Button from "./basics/Button";
-import iconAdd from "../assets/icon-add-task-mobile.svg";
+import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import { useContext } from "react";
 import { BoardContext } from "../context/boardContext";
 
@@ -39,6 +39,7 @@ const BoardName = styled.h1`
 function Header() {
 
     const { t } = useTranslation();
+    const theme = useTheme()
 
     const { currentBoard } = useContext(BoardContext);
 
@@ -48,7 +49,7 @@ function Header() {
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
             <BoardName>{currentBoard.name}</BoardName>
-            <Button><img src={iconAdd} alt="Plus"/> {t('action.addNewTask')}</Button>
+            <Button><AddLogo fill={theme.colors.textPrimary}/> {t('action.addNewTask')}</Button>
         </HeaderDiv>
     )
 }
