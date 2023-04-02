@@ -29,7 +29,12 @@ const BoardProvider = ({children}) => {
     }
 
     return (
-        <BoardContext.Provider value={{currentBoard, setCurrent, list : data.boards.map(b => b.name), moveTask}}>
+        <BoardContext.Provider value={{
+            currentBoard,
+            list : data.boards.map(b => b.name),
+            moveTask,
+            setCurrent
+        }}>
             {children}
         </BoardContext.Provider>
     )

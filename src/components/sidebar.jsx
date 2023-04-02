@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import styled, { useTheme } from "styled-components";
-import Button from "./basics/button";
+import Button from "./basics/Button";
 import {ReactComponent as BoardLogo} from "../assets/icon-board.svg";
 import {ReactComponent as HideLogo} from "../assets/icon-hide-sidebar.svg";
 import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
-import ThemeSwitch from "./themeSwitch";
+import ThemeSwitch from "./ThemeSwitch";
 import { BoardContext } from "../context/boardContext";
 
 const Background = styled.div`

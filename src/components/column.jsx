@@ -2,7 +2,8 @@ import { useContext, useEffect } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { BoardContext } from "../context/boardContext";
-import Task from "./task"
+import Task from "./Task"
+import VerticalScroll from "./basics/VerticalScroll";
 
 const ColumnContainer = styled.div`
     width: 280px;
@@ -25,33 +26,9 @@ const Dot = styled.span`
     margin-right: 10px;
 `
 
-const ColumnList = styled.div`
+const ColumnList = styled(VerticalScroll)`
     height: calc(100% - 85px);
-    overflow-y: auto;
-    overflow-x: hidden;
     padding-right: 10px;
-    transition: all 0.5s;
-    &:hover {
-        &::-webkit-scrollbar
-        {
-            opacity: 100%;
-        }
-        &::-webkit-scrollbar-thumb
-        {
-            border-radius: 20px;
-            background-color: ${props => props.theme.colors.backgroundMain};
-        }
-    }
-    &::-webkit-scrollbar
-    {
-        opacity: 0%;
-        width: 12px;
-    }
-    &::-webkit-scrollbar-thumb
-    {
-        border-radius: 20px;
-        background-color: transparent;
-    }
 `
 
 function getColor(){ 
@@ -61,10 +38,6 @@ function getColor(){
 function Column({index}) {
 
     const { currentBoard } = useContext(BoardContext);
-
-    useEffect(() => {
-        console.log(currentBoard)
-    }, [currentBoard])
 
     return (
         <ColumnContainer>

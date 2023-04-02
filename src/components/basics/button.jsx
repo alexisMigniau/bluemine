@@ -14,6 +14,7 @@ const BasicButton = styled.button`
     transition: 0.3s ease-out;
     &:hover:enabled {
         background-color: ${props => props.theme.colors[props.color + 'Fade']};
+        cursor: pointer;
     }
     &:disabled {
         opacity: 25%;

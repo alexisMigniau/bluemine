@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
-import Button from "./basics/button";
+import Button from "./basics/Button";
 import iconAdd from "../assets/icon-add-task-mobile.svg";
 import { useContext } from "react";
 import { BoardContext } from "../context/boardContext";

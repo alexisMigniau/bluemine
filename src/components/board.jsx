@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../context/boardContext";
 import { DragDropContext } from 'react-beautiful-dnd';
-import Column from "./column"
+import Column from "./Column"
 
 const List = styled.div`
     display: flex;

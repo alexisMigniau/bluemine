@@ -1,8 +1,8 @@
 import Theme from "./context/theme";
-import Header from "./components/header";
-import Sidebar from "./components/sidebar";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 import styled from "styled-components";
-import Board from "./components/board";
+import Board from "./components/Board";
 import BoardProvider from "./context/boardContext";
 
 const AppContainer = styled.div`
