@@ -1,8 +1,11 @@
+import { useContext, useEffect } from "react";
+import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { BoardContext } from "../context/boardContext";
 import Task from "./task"
 
 const ColumnContainer = styled.div`
-    width: 290px;
+    width: 280px;
     height: 100%;
 `
 
@@ -23,16 +26,14 @@ const Dot = styled.span`
 `
 
 const ColumnList = styled.div`
-    max-height: calc(100% - 85px);
+    height: calc(100% - 85px);
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 10px;
-    transition: all 2s;
-
+    transition: all 0.5s;
     &:hover {
-        transition: all 2s;
         &::-webkit-scrollbar
         {
-            
             opacity: 100%;
         }
         &::-webkit-scrollbar-thumb
@@ -41,7 +42,6 @@ const ColumnList = styled.div`
             background-color: ${props => props.theme.colors.backgroundMain};
         }
     }
-
     &::-webkit-scrollbar
     {
         opacity: 0%;
@@ -58,15 +58,27 @@ function getColor(){
     return `hsla(${~~(360 * Math.random())}, 70%,  72%, 0.8)`
 }
 
-function Column({tasks = [], name = ""}) {
+function Column({index}) {
+
+    const { currentBoard } = useContext(BoardContext);
+
+    useEffect(() => {
+        console.log(currentBoard)
+    }, [currentBoard])
+
     return (
         <ColumnContainer>
-            <ColumnTitle><Dot color={getColor()}/>{name} ( {tasks.length} )</ColumnTitle>
-            <ColumnList>
-                {tasks.map(task => (
-                    <Task key={task.title} task={task}/>
-                ))}
-            </ColumnList>
+            <ColumnTitle><Dot color={getColor()}/>{currentBoard.name} ( {currentBoard.columns[index].tasks.length} )</ColumnTitle>
+            <Droppable droppableId={`${currentBoard.name}-${index}`}>
+                {(provided) => (
+                    <ColumnList ref={provided.innerRef} {...provided.droppableProps}>
+                        {currentBoard.columns[index].tasks.map((task, index) => (
+                            <Task key={`${task.title}-${index}`} task={task} index={index}/>
+                        ))}
+                        {provided.placeholder}
+                    </ColumnList>
+                )}
+            </Droppable>
         </ColumnContainer>
     )
 }

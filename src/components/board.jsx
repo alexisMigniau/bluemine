@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { BoardContext } from "../context/boardContext";
+import { DragDropContext } from 'react-beautiful-dnd';
 import Column from "./column"
 
 const List = styled.div`
@@ -13,13 +14,21 @@ const List = styled.div`
 
 function Board() {
 
-    const {currentBoard} = useContext(BoardContext);
+    const { currentBoard, moveTask } = useContext(BoardContext);
+
+    const handleDragEnd = ({ source, destination }) => {
+        if(source && destination) {
+            moveTask(source.droppableId.split("-").pop() , source.index, destination.droppableId.split("-").pop(),destination.index)
+        }
+    };
 
     return (
         <List>
-            {currentBoard.columns.map(column => (
-                <Column key={column.name} tasks={column.tasks} name={column.name}/>
-            ))}
+            <DragDropContext onDragEnd={handleDragEnd}>
+                {currentBoard.columns.map((column, index) => (
+                    <Column key={`${column.name}-${index}`} index={index} tasks={column.tasks} name={column.name}/>
+                ))}
+            </DragDropContext>
         </List>
     )
 }
