@@ -4,6 +4,7 @@ import { forwardRef } from "react"
 const Container = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-gutter: stable;
     &:hover {
         &::-webkit-scrollbar
         {
