@@ -10,7 +10,7 @@ const Container = styled.div`
     background-color: ${props => props.theme.colors.backgroundSecondary};
     justify-content: center;
     align-items: center;
-    height: 60px;
+    min-height: 48px;
     margin-left: 22px;
     border-radius: 10px;
     margin-bottom: 20px;

@@ -9,6 +9,7 @@ import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import ThemeSwitch from "./ThemeSwitch";
 import { BoardContext } from "../context/boardContext";
 import AddBoardModal from "./modal/AddBoardModal";
+import VerticalScroll from "./basics/VerticalScroll";
 
 const Background = styled.div`
     width: ${props => props.expanded ? "299px" : "0px"};
@@ -26,12 +27,13 @@ const BoardList = styled.div`
     flex-direction: column;
     align-items: flex-start;
     row-gap: 10px;
-    height: 100%;
+    max-height: 80%;
+    height: 80%;
 `
 
 const BoardItem = styled(Button)`
     border-radius: 0px 50px 50px 0px;
-    width: 276px;
+    width: 270px;
     text-align: left;
     padding-left: 40px;
     font-size: ${props => props.theme.fontSizes.large};
@@ -50,6 +52,7 @@ const BoardItem = styled(Button)`
     display: flex;
     column-gap: 20px;
     align-items: center;
+    min-height: 48px;
 `
 
 const AddBoardButton = styled(BoardItem)`
@@ -58,6 +61,7 @@ const AddBoardButton = styled(BoardItem)`
 
 const HideButton = styled(BoardItem)`
     margin-bottom: 20px;
+    height: 48px;
 `
 
 const BoardTitle = styled.h2`
@@ -75,6 +79,15 @@ const ShowButton = styled(Button)`
     display: flex;
     align-items: center;
     transition: 0.4s all;
+    min-height: 48px;
+`
+
+const ScrollList = styled(VerticalScroll)`
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-height: 80%;
+    padding-right: 10px;
 `
 
 function Sidebar() {
@@ -90,12 +103,14 @@ function Sidebar() {
         <Background expanded={!hidden}>
             <BoardTitle>{t('common.allBoards')} ( {list.length} )</BoardTitle>
             <BoardList>
-                {list && list.map(board => (
-                    <BoardItem key={board} disabled={currentBoard.name === board} onClick={() => setCurrent(board)}>
-                        <BoardLogo fill={currentBoard.name === board ? theme.colors.textPrimary : theme.colors.grey}/>
-                        {board}
-                    </BoardItem>
-                ))}
+                <ScrollList hover={true} color={theme.colors.backgroundSecondary}>
+                    {list && list.map(board => (
+                        <BoardItem key={board} disabled={currentBoard.name === board} onClick={() => setCurrent(board)}>
+                            <BoardLogo fill={currentBoard.name === board ? theme.colors.textPrimary : theme.colors.grey}/>
+                            {board}
+                        </BoardItem>
+                    ))}
+                </ScrollList>
                 <AddBoardButton onClick={() => setShowModal(true)}>
                     <AddLogo fill={theme.colors.primary}/> 
                     {t("action.createBoard")}
