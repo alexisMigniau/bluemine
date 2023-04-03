@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import { useEffect, useState } from "react";
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
+import VerticalScroll from "./VerticalScroll";
 
 const Container = styled.div`
     display: flex;
@@ -27,13 +29,26 @@ const InputDom = styled.input`
     }
 `
 
+const ScrollList = styled(VerticalScroll)`
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-height: 400px;
+    padding-right: 10px;
+`
+
 function InputList({label = "", type = "text", name = "", values = [], onChangeList,...props}) {
 
     const [list, setList] = useState(values);
+    const scrollList = useRef(null)
+
+    const theme = useTheme()
 
     useEffect(() => {
-        if(list.length > 1)
+        if(list.length > 1) {
             onChangeList(list.filter((item) => item !== ""))
+            scrollList.current.scrollTop = scrollList.current.scrollHeight
+        }
     }, [list])
 
     const updateValue = (event, index) => {
@@ -50,23 +65,25 @@ function InputList({label = "", type = "text", name = "", values = [], onChangeL
         // On ne garde que les valeurs
         items = items.filter((item, index, arr) => item !== "" || index + 1 === arr.length)
 
-        setList(items)
+        setList(items)        
     }
 
     return (
         <Container>
             <Label htmlFor={`${name}-0`}>{label}</Label>
-            {list && list.map((value,index) => (
-                <InputDom
-                    type={type}
-                    key={`${name}-${index}`}
-                    name={`${name}-${index}`}
-                    id={`${name}-${index}`}
-                    value={value}
-                    onChange={(e) => updateValue(e, index)}
-                    {...props}
-                />
-            ))}
+            <ScrollList ref={scrollList} color={theme.colors.backgroundSecondary}>
+                {list && list.map((value,index) => (
+                    <InputDom
+                        type={type}
+                        key={`${name}-${index}`}
+                        name={`${name}-${index}`}
+                        id={`${name}-${index}`}
+                        value={value}
+                        onChange={(e) => updateValue(e, index)}
+                        {...props}
+                    />
+                ))}
+            </ScrollList>
         </Container>
     )
 }

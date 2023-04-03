@@ -44,7 +44,7 @@ function Column({index}) {
             <ColumnTitle><Dot color={getColor()}/>{currentBoard.columns[index].name} ( {currentBoard.columns[index].tasks.length} )</ColumnTitle>
             <Droppable droppableId={`${currentBoard.name}-${index}`}>
                 {(provided) => (
-                    <ColumnList ref={provided.innerRef} {...provided.droppableProps}>
+                    <ColumnList ref={provided.innerRef} {...provided.droppableProps} hover={true}>
                         {currentBoard.columns[index].tasks.map((task, index) => (
                             <Task key={`${task.title}-${index}`} task={task} index={index}/>
                         ))}
