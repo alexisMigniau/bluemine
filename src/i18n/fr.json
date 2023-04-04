@@ -11,7 +11,9 @@
         "createBoard": "Créer un tableau" 
     },
     "task": {
-        "progress": "{{ completed }} sur {{ total }}"
+        "progress": "{{ completed }} sur {{ total }}",
+        "subtaskTitle": "Sous-tâches ({{ completed }} sur {{ total }})",
+        "noDescription": "Sans description"
     },
     "board": {
         "form" : {

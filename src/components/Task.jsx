@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import ViewTask from "./modal/ViewTask";
 
 const TaskContainer = styled.div`
     background-color: ${props => props.isDrag ? props.theme.colors.backgroundSecondary : props.theme.colors.backgroundMain};
@@ -39,20 +41,21 @@ function Task({task, index}) {
     const { t } = useTranslation();
 
     const completedTask = task.subtasks.filter(subtask => subtask.isCompleted)
-    
-    const handleClick = () => {
-    
-    }
+
+    const [showViewModal, setShowViewModel] = useState(false);
 
     return (
-        <Draggable draggableId={`${index}-${task.title}`} index={index}>
-            {(provided, snapshot) => (
-                <TaskContainer ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={handleClick} isDrag={snapshot.isDragging}>
-                    <TaskTitle>{task.title}</TaskTitle>
-                    <TaskProgress>{t('task.progress', {total : task.subtasks.length, completed : completedTask.length})}</TaskProgress>
-                </TaskContainer>
-            )}
-        </Draggable>
+        <div>
+            <Draggable draggableId={`${index}-${task.title}`} index={index}>
+                {(provided, snapshot) => (
+                    <TaskContainer ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => setShowViewModel(true)} isDrag={snapshot.isDragging}>
+                        <TaskTitle>{task.title}</TaskTitle>
+                        <TaskProgress>{t('task.progress', {total : task.subtasks.length, completed : completedTask.length})}</TaskProgress>
+                    </TaskContainer>
+                )}
+            </Draggable>
+            <ViewTask task={task} show={showViewModal} index={index} onClose={() => setShowViewModel(false)}/>
+        </div>
     )
 }
 

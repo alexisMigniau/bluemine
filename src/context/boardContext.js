@@ -75,6 +75,10 @@ const BoardProvider = ({children}) => {
         dispatch({type : "addColumn", name})
     }
 
+    const updateSubtask = (column, task_index, subtask_index, checked) => {
+        dispatch({type : "updateSubtask", column, task_index, subtask_index, checked})
+    }
+
     return (
         <BoardContext.Provider value={{
             currentBoard,
@@ -82,7 +86,8 @@ const BoardProvider = ({children}) => {
             moveTask,
             setCurrent,
             addBoard,
-            addColumn
+            addColumn,
+            updateSubtask
         }}>
             {children}
         </BoardContext.Provider>

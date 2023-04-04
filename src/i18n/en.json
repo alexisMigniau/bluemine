@@ -11,7 +11,8 @@
         "createBoard": "Create New Board" 
     },
     "task": {
-        "progress": "{{ completed }} of {{ total }} subtasks"
+        "progress": "{{ completed }} of {{ total }} subtasks",
+        "subtaskTitle": "Subtasks ({{ completed }} of {{ total }})"
     },
     "board": {
         "form" : {
