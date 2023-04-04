@@ -13,7 +13,7 @@ const ConfirmButton = styled(Button)`
 
 function AddBoardModal(props) {
     const { t } = useTranslation();
-    const { addBoard } = useContext(BoardContext)
+    const { addBoard, list } = useContext(BoardContext)
 
     const [name, setName] = useState("");
     const [columns, setColumns] = useState([""])
@@ -34,7 +34,9 @@ function AddBoardModal(props) {
         if(name === "")
         {
             setErrors({...errors, name : t("common.fieldIsRequired")})
-        } else {
+        } if(list.includes(name)) {
+            setErrors({...errors, name : t("board.form.boardAlreadyExist")})
+        }else {
             addBoard(name, columns)
             setName("")
             setColumns([""])

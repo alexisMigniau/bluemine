@@ -18,14 +18,16 @@
             "name" : "Name",
             "namePlaceHolder" : "e.g. Web design",
             "column" : "Columns",
-            "columnPlaceHolder" : "e.g. Todo"
+            "columnPlaceHolder" : "e.g. Todo",
+            "boardAlreadyExist" : "Board already exist"
         }
     },
     "column": {
         "form" : {
             "addColumn": "Ajoute une colonne",
             "name" : "Nom",
-            "namePlaceHolder" : "ex. En cours"
+            "namePlaceHolder" : "ex. En cours",
+            "columnAlreadyExist" : "Column already exist"
         }
     }
 }

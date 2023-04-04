@@ -13,7 +13,7 @@ const ConfirmButton = styled(Button)`
 
 function AddColumnModal(props) {
     const { t } = useTranslation();
-    const { addColumn } = useContext(BoardContext)
+    const { addColumn, currentBoard } = useContext(BoardContext)
 
     const [name, setName] = useState("");
 
@@ -27,10 +27,12 @@ function AddColumnModal(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(name === "")
-        {
+        if(name === "") {
             setErrors({...errors, name : t("common.fieldIsRequired")})
-        } else {
+        } else if(currentBoard.columns.map(c => c.name).includes(name)) {
+            setErrors({...errors, name : t("column.form.columnAlreadyExist")})
+        }
+        else {
             addColumn(name)
             setName("")
             props.onClose()

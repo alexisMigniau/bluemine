@@ -19,14 +19,16 @@
             "name" : "Nom",
             "namePlaceHolder" : "ex. Design Web",
             "column" : "Colonnes",
-            "columnPlaceHolder" : "ex. En cours"
+            "columnPlaceHolder" : "ex. En cours",
+            "boardAlreadyExist" : "Tableau déja existant"
         }
     },
     "column": {
         "form" : {
             "addColumn": "Ajoute une colonne",
             "name" : "Nom",
-            "namePlaceHolder" : "ex. En cours"
+            "namePlaceHolder" : "ex. En cours",
+            "columnAlreadyExist" : "Colonne déja existante"
         }
     }
 }
