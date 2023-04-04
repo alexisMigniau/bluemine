@@ -3,7 +3,8 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import styled from "styled-components";
 import Board from "./components/Board";
-import BoardProvider from "./context/boardContext";
+import BoardProvider, { BoardContext } from "./context/boardContext";
+import { useContext } from "react";
 
 const AppContainer = styled.div`
   height: 100%;
@@ -19,18 +20,27 @@ const Content = styled.div`
   max-height: calc(100% - 91px);
 `
 
+function BoardContainer() {
+  
+  const { currentBoard } = useContext(BoardContext);
+
+  return currentBoard && (
+    <AppContainer>
+      <Header />
+      <Content>
+        <Sidebar />
+        <Board />
+      </Content>
+    </AppContainer>
+  )
+}
+
 function App() {
 
   return (
     <Theme>
       <BoardProvider>
-        <AppContainer>
-          <Header />
-          <Content>
-            <Sidebar />
-            <Board />
-          </Content>
-        </AppContainer>
+        <BoardContainer />
       </BoardProvider>
     </Theme>
   );
