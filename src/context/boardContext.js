@@ -19,6 +19,8 @@ const BoardProvider = ({children}) => {
             case "addBoard":
                 data.boards.push({"name" : action.name, "columns" : action.columns.map(c => {return {"name" : c, "tasks" : []}})})
                 return data.boards.find(b => b.name === action.name);
+            case "addColumn":
+                return {...state, columns : [...state.columns, {name : action.name, tasks : []}]}
             default:
                 throw new Error();
         }
@@ -38,13 +40,18 @@ const BoardProvider = ({children}) => {
         dispatch({type : "addBoard", name, columns})
     }
 
+    const addColumn = (name) => {
+        dispatch({type : "addColumn", name})
+    }
+
     return (
         <BoardContext.Provider value={{
             currentBoard,
             list : data.boards.map(b => b.name),
             moveTask,
             setCurrent,
-            addBoard
+            addBoard,
+            addColumn
         }}>
             {children}
         </BoardContext.Provider>

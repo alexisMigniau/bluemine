@@ -6,7 +6,7 @@ import Task from "./Task"
 import VerticalScroll from "./basics/VerticalScroll";
 
 const ColumnContainer = styled.div`
-    width: 280px;
+    min-width: 280px;
     height: 100%;
 `
 
@@ -15,6 +15,7 @@ const ColumnTitle = styled.h3`
     color: ${props => props.theme.colors.grey};
     text-transform: uppercase;
     letter-spacing: 2px;
+    height: 20px;
 `
 
 const Dot = styled.span`

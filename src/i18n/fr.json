@@ -6,7 +6,7 @@
     },
     "action": {
         "addNewTask": "Ajouter une tâche",
-        "addNewColumn": "Ajouter une colonne",
+        "addNewColumn": "Nouvelle colonne",
         "hideSidebar": "Cacher",
         "createBoard": "Créer un tableau" 
     },
@@ -20,6 +20,13 @@
             "namePlaceHolder" : "ex. Design Web",
             "column" : "Colonnes",
             "columnPlaceHolder" : "ex. En cours"
+        }
+    },
+    "column": {
+        "form" : {
+            "addColumn": "Ajoute une colonne",
+            "name" : "Nom",
+            "namePlaceHolder" : "ex. En cours"
         }
     }
 }

@@ -12,7 +12,7 @@ import AddBoardModal from "./modal/AddBoardModal";
 import VerticalScroll from "./basics/VerticalScroll";
 
 const Background = styled.div`
-    width: ${props => props.expanded ? "299px" : "0px"};
+    min-width: ${props => props.expanded ? "299px" : "0px"};
     overflow: hidden;
     background-color: ${props => props.theme.colors.backgroundMain};
     border-right: 1px solid ${props => props.theme.colors.stroke};
