@@ -30,5 +30,13 @@
             "namePlaceHolder" : "ex. En cours",
             "columnAlreadyExist" : "Column already exist"
         }
+    },
+    "login": {
+        "sign_in" : "Sign in to Redmine",
+        "login": "Login",
+        "description": "This services needs to connect to your Redmine account for fetch issues and other data",
+        "button": "Connect with Redmine",
+        "password": "Password",
+        "logout" : "Logout"
     }
 }

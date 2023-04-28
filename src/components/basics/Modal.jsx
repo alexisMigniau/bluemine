@@ -9,15 +9,16 @@ const Background = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: ${props => props.fullScreen ? props.theme.colors.backgroundMain : "rgba(0, 0, 0, 0.4)" };
     display: flex;
-    align-items: center;
+    align-items: start;
+    padding-top: 5%;
     justify-content: center;
 `
 
 const ModalContainer = styled.div`
-    width: 480px;
-    max-height: 675px;
+    width: ${props => props.width};
+    max-height: 90%;
     background-color: ${props => props.theme.colors.backgroundMain};
     border-radius: 8px;
     padding: 32px;
@@ -48,7 +49,7 @@ const CloseLogo = styled(AddLogo)`
     cursor: pointer;
 `
 
-function Modal({show, children, title, onClose}) {
+function Modal({show, children, title, onClose, canClose = true, fullScreen = false, width = '480px'}) {
 
     const theme = useTheme()
 
@@ -56,12 +57,19 @@ function Modal({show, children, title, onClose}) {
         e.stopPropagation();
     }
 
+    const handleManualClose = () => {
+        if(canClose)
+        {
+            onClose()
+        }
+    }
+
     return show ? (
-        <Background onClick={onClose}>
-            <ModalContainer onClick={handleClickOutside}>
+        <Background fullScreen={fullScreen} onClick={handleManualClose}>
+            <ModalContainer onClick={handleClickOutside} width={width}>
                 <ModalHeader>
                     <ModalTitle>{title}</ModalTitle>
-                    <CloseLogo fill={theme.colors.error} onClick={onClose}/>
+                    {canClose && <CloseLogo fill={theme.colors.error} onClick={handleManualClose}/>}
                 </ModalHeader>
                 <VerticalScroll>{children}</VerticalScroll>
             </ModalContainer>

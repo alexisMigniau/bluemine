@@ -4,7 +4,8 @@ import Sidebar from "./components/Sidebar";
 import styled from "styled-components";
 import Board from "./components/Board";
 import BoardProvider, { BoardContext } from "./context/boardContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import LoginModal from "./components/modal/LoginModal";
 
 const AppContainer = styled.div`
   height: 100%;
@@ -24,12 +25,21 @@ function BoardContainer() {
   
   const { currentBoard } = useContext(BoardContext);
 
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  useEffect(() => {
+    if(!localStorage.getItem("apikey")) {
+      setShowLoginModal(true);
+    }
+  }, [])
+
   return currentBoard && (
     <AppContainer>
       <Header />
       <Content>
         <Sidebar />
         <Board />
+        <LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)}/>
       </Content>
     </AppContainer>
   )
