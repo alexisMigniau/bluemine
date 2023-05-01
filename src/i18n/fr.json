@@ -1,29 +1,28 @@
 {
-
     "common": {
         "allBoards": "Tous les tableaux",
         "required": "Champ requis",
-        "fieldIsRequired": "Ne peut pas être vide"
+        "fieldIsRequired": "Ne peut pas être vide",
+        "noneValue": "Aucune valeur sélectionnée",
+        "noMoreResult": "Aucun résultat",
+        "unselectAll": "Désélectionner tout"
     },
     "action": {
         "addNewTask": "Ajouter une tâche",
         "addNewColumn": "Nouvelle colonne",
         "hideSidebar": "Cacher",
-        "createBoard": "Créer un tableau" 
+        "createView": "Créer une vue" 
     },
     "task": {
         "progress": "{{ completed }} sur {{ total }}",
         "subtaskTitle": "Sous-tâches ({{ completed }} sur {{ total }})",
         "noDescription": "Sans description"
     },
-    "board": {
+    "view": {
         "form" : {
-            "addBoard": "Ajouter un tableau",
+            "addView": "Ajouter une vue",
             "name" : "Nom",
-            "namePlaceHolder" : "ex. Design Web",
-            "column" : "Colonnes",
-            "columnPlaceHolder" : "ex. En cours",
-            "boardAlreadyExist" : "Tableau déja existant"
+            "namePlaceHolder" : "ex. Ligeo gestion"
         }
     },
     "column": {
@@ -40,6 +39,28 @@
         "description": "L'application utilise votre compte Redmine pour récupérer les demandes et autres informations",
         "button": "Se connecter à Redmine",
         "password": "Mot de passe",
-        "logout" : "Déconnexion"
+        "logout" : "Se déconnecter"
+    },
+    "project" : {
+        "name" : "Projet",
+        "description" : "Ce champ permet de filtrer les tickets qui seront affichés en fonction des projets.",
+        "manual" : {
+            "name" : "Sélection manuelle",
+            "placeholder" : "Rechercher un projet par son nom"
+        },
+        "automatique" : {
+            "name" : "Sélection automatique",
+            "placeholder" : "ex. gestion"
+        }
+    },
+    "tracker" : {
+        "name" : "Tracker",
+        "label" : "Sélection des trackers",
+        "description" : "Ce champ permet de filtrer les tickets qui sont sur un ou plusieurs trackers que tu aura choisit. Si aucun tracker est sélectionner, il n'y aura pas de filtre sur les trackers."
+    },
+    "status" : {
+        "name" : "Statut",
+        "label" : "Sélection des statuts",
+        "description" : "Sert à filtrer les tickets en fonction de leur statut. Si aucun statut n'est choisit, il n'aura pas de filtre sur les statut des tickets."
     }
 }

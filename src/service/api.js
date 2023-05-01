@@ -1,40 +1,22 @@
-const call = async (method = 'GET', url = '', data = null, headersBonus = null) => {
+import get from "./client";
 
-    // Récupérer la clé API qui est dans le localStorage
-
-    let apiKey = localStorage.getItem('apikey') ?? '';
-
-    let options = {
-        method : method,
-        mode: "cors",
-        headers : {
-            'Content-Type': 'application/json; charset=utf-8',
-        }
-    }
-
-    // Ajout du body
-    if(data) {
-        options.body = JSON.stringify(data)
-    }
-
-    // Ajout de clé API
-    if(apiKey !== '') {
-        options.headers['X-Redmine-API-Key'] = apiKey;
-    }
-
-    if(headersBonus) {
-        options.headers = {...options.headers, ...headersBonus}
-    }
-
-    const res = await fetch('http://redmine.localhost' + url + ".json", options);
-
-    return await res.json()
+/**
+ * 
+ * @param {string} q 
+ * @param {string} object issues | projects 
+ * @param {integer} limit 20
+ * @param {integer} offset 0
+ */
+const searchAll = async (q, object, limit = 20, offset = 0) => {
+    return await get('/search', {q, [object] : 1, limit, offset})
 }
 
-const get = async (url, params, headers) => {
-    return call('GET', url, null, headers);
-}
-
+/**
+ * Fetch les données d'un utilisateur via son login et password
+ * @param {string} login 
+ * @param {string} password 
+ * @returns user
+ */
 const getUser = async (login, password) => {
     let { user } = await get('/users/current', null, {
         Authorization : 'Basic ' + btoa(`${login}:${password}`)
@@ -43,4 +25,29 @@ const getUser = async (login, password) => {
     return user;
 }
 
-export default getUser;
+/**
+ * Fetch les projets
+ * @param {string} name 
+ * @returns projects
+ */
+const getProjects = async () => {
+    return await get('/projects');
+}
+
+/**
+ * Fetch tous les trackers
+ * @return trackers
+ */
+const getTrackers = async () => {
+    return await get('/trackers');
+}
+
+/**
+ * Fetch tous les statut
+ * @return status
+ */
+const getStatus = async () => {
+    return await get('/issue_statuses');
+}
+
+export {getUser, getProjects, getTrackers, getStatus, searchAll};

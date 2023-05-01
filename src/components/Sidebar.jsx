@@ -8,7 +8,7 @@ import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
 import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import ThemeSwitch from "./ThemeSwitch";
 import { BoardContext } from "../context/boardContext";
-import AddBoardModal from "./modal/AddBoardModal";
+import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
 
 const Background = styled.div`
@@ -55,7 +55,7 @@ const BoardItem = styled(Button)`
     min-height: 48px;
 `
 
-const AddBoardButton = styled(BoardItem)`
+const AddViewButton = styled(BoardItem)`
     color: ${props => props.theme.colors.primary};
 `
 
@@ -98,6 +98,11 @@ function Sidebar() {
 
     const [hidden, isHidden] = useState(false);
     const [showModal, setShowModal] = useState(false);
+
+    const handleAddView = (e) => {
+        e.target.blur();
+        setShowModal(true)
+    }
     
     return (
         <Background expanded={!hidden}>
@@ -111,15 +116,15 @@ function Sidebar() {
                         </BoardItem>
                     ))}
                 </ScrollList>
-                <AddBoardButton onClick={() => setShowModal(true)}>
+                <AddViewButton onClick={handleAddView}>
                     <AddLogo fill={theme.colors.primary}/> 
-                    {t("action.createBoard")}
-                </AddBoardButton>
+                    {t("action.createView")}
+                </AddViewButton>
             </BoardList>
             <ThemeSwitch/>
             <HideButton size="L" onClick={(e) => isHidden(true)}><HideLogo />{t('action.hideSidebar')}</HideButton>
             <ShowButton size="S" onClick={(e) => isHidden(false)} expanded={hidden}><ShowLogo/></ShowButton>
-            <AddBoardModal show={showModal} onClose={() => setShowModal(false)}></AddBoardModal>
+            <AddViewModal show={showModal} onClose={() => setShowModal(false)}></AddViewModal>
         </Background>
     )
 }
