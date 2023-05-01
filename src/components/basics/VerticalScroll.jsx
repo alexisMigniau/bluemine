@@ -20,17 +20,18 @@ const Container = styled.div`
         &::-webkit-scrollbar
         {
             opacity: 0%;
-            width: 12px;
+            width: 10px;
         }
         &::-webkit-scrollbar-thumb
         {
             border-radius: 20px;
-            background-color: transparent;
+            background-color: ${props.bgColor ? props.bgColor : 'transparent'};
         }
     ` : `
         &::-webkit-scrollbar
         {
-            width: 12px;
+            width: 10px;
+            background-color: ${props.bgColor ? props.bgColor : 'transparent'};
         }
         &::-webkit-scrollbar-thumb
         {
