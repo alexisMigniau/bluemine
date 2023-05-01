@@ -12,7 +12,7 @@ const call = async (method = 'GET', url = '', params = {} , data = null, headers
     }
 
     // Ajout du body
-    if(data) {
+    if(data && method !== 'GET') {
         options.body = JSON.stringify(data)
     }
 
@@ -38,7 +38,7 @@ const call = async (method = 'GET', url = '', params = {} , data = null, headers
 }
 
 const get = async (url, params, headers) => {
-    return call('GET', url, params, headers);
+    return call('GET', url, params, null,headers);
 }
 
 export default get;
