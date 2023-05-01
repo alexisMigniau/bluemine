@@ -23,7 +23,11 @@ const ViewProvider = ({children}) => {
         } else {
             const tmp = JSON.parse(localStorage.getItem('views'))
             setViews(tmp)
-            setCurrentView(tmp[0])
+            if(localStorage.getItem('lastView') === null) {
+                setCurrentView(tmp[0])
+            } else {
+                setCurrentView(tmp.find(v => v.name === localStorage.getItem('lastView')))
+            }
         }
     }, [])
 
@@ -32,6 +36,10 @@ const ViewProvider = ({children}) => {
             localStorage.setItem('views', JSON.stringify(views))
         }
     }, [views]);
+
+    useEffect(() => {
+        localStorage.setItem('lastView', currentView.name)
+    }, [currentView])
 
     const addView = (view) => {
         setCurrentView(view)
