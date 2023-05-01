@@ -10,7 +10,13 @@ const ViewProvider = ({children}) => {
     useEffect(() => {
         if(localStorage.getItem('views') === null) {
             const defaultView = {
-                "name" : "Aucun filtre"
+                name : "Vue par défaut",
+                projects : {
+                    auto : "",
+                    manual : []
+                },
+                trackers : [],
+                status : []
             }
             setCurrentView(defaultView)
             setViews([defaultView])

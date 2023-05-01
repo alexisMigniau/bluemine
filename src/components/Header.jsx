@@ -4,6 +4,7 @@ import logoLight from "../assets/logo-light.svg"
 import Button from "./basics/Button";
 import { useContext } from "react";
 import { ViewContext } from "../context/ViewContext";
+import ResumeView from "./ResumeView";
 
 const HeaderDiv = styled.div`
     background-color: ${props => props.theme.colors.backgroundMain};
@@ -28,11 +29,18 @@ const SliderTop = styled.div`
     align-items: center;
 `
 
-const BoardName = styled.h1`
-    color: ${props => props.theme.colors.textPrimary};
+const TitleContainer = styled.div`
     width: 100%;
     flex-shrink: 100;
     padding-left: 20px;
+    display : flex;
+    flex-direction : column;
+    padding-top: 10px;
+`
+
+const BoardName = styled.h1`
+    color: ${props => props.theme.colors.textPrimary};
+    margin: 0px;
 `
 
 function Header({ onLogout }) {
@@ -40,12 +48,15 @@ function Header({ onLogout }) {
     const { currentView } = useContext(ViewContext);
     const { t } = useTranslation()
 
-    return (
+    return currentView && (
         <HeaderDiv>
             <SliderTop>
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
-            <BoardName>{currentView.name}</BoardName>
+            <TitleContainer>
+                <BoardName>{currentView.name}</BoardName>
+                {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
+            </TitleContainer>
             <Button onClick={onLogout}>{t('login.logout')}</Button>
         </HeaderDiv>
     )
