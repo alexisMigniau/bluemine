@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { getIssues } from "../service/api";
 
 export const ViewContext = createContext()
 
@@ -6,6 +7,7 @@ const ViewProvider = ({children}) => {
 
     const [views, setViews] = useState([]);
     const [currentView, setCurrentView] = useState({})
+    const [issues, setIssues] = useState([])
 
     useEffect(() => {
         if(localStorage.getItem('views') === null) {
@@ -38,12 +40,25 @@ const ViewProvider = ({children}) => {
     }, [views]);
 
     useEffect(() => {
-        localStorage.setItem('lastView', currentView.name)
+        // Sauvegarde dans le localStorage
+        if(Object.keys(currentView).length > 0) {
+            localStorage.setItem('lastView', currentView.name)
+
+            // Fetch des issues en utilisant la vue courante
+            fetchIssues()
+        }
     }, [currentView])
 
     const addView = (view) => {
         setCurrentView(view)
         setViews([...views, view])
+    }
+
+    const fetchIssues = async () => {
+        // Si il y a une valeur dans projetAuto alors on chercher les projets avec ce nom
+        
+
+        getIssues([], currentView.trackers.map(t => t.id), currentView.status.map(s => s.id))
     }
 
     return (

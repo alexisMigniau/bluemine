@@ -25,7 +25,7 @@ const call = async (method = 'GET', url = '', params = {} , data = null, headers
         options.headers = {...options.headers, ...headersBonus}
     }
 
-    const url_o = new URL(process.env.REACT_APP_REDMINE_URL + url + ".json");
+    const url_o = new URL(process.env.REACT_APP_REDMINE_URL + url);
 
     // Ajout des paramètres de recherche
     if(params) {

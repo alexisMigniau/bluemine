@@ -8,7 +8,7 @@ import get from "./client";
  * @param {integer} offset 0
  */
 const searchAll = async (q, object, limit = 20, offset = 0) => {
-    return await get('/search', {q, [object] : 1, limit, offset})
+    return await get('/search.json', {q, [object] : 1, limit, offset})
 }
 
 /**
@@ -18,7 +18,7 @@ const searchAll = async (q, object, limit = 20, offset = 0) => {
  * @returns user
  */
 const getUser = async (login, password) => {
-    let { user } = await get('/users/current', null, {
+    let { user } = await get('/users/current.json', null, {
         Authorization : 'Basic ' + btoa(`${login}:${password}`)
     });
 
@@ -31,7 +31,7 @@ const getUser = async (login, password) => {
  * @returns projects
  */
 const getProjects = async () => {
-    return await get('/projects');
+    return await get('/projects.json');
 }
 
 /**
@@ -39,7 +39,7 @@ const getProjects = async () => {
  * @return trackers
  */
 const getTrackers = async () => {
-    return await get('/trackers');
+    return await get('/trackers.json');
 }
 
 /**
@@ -47,7 +47,52 @@ const getTrackers = async () => {
  * @return status
  */
 const getStatus = async () => {
-    return await get('/issue_statuses');
+    return await get('/issue_statuses.json');
 }
 
-export {getUser, getProjects, getTrackers, getStatus, searchAll};
+/**
+ * Fetch les issues
+ * @param {array} projects_ids
+ * @param {array} trackers_ids
+ * @param {array} status_ids
+ * @param {int} offset 0
+ * @param {int} limit 0
+ * @return issues
+ */
+const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], offset = 0, limit = 100) => {
+    // Petit tricks
+    // Le pipe permet de séléctionner plusieurs id, ça fonctionne bien pour les trackers et les statut par contre pour les projets ça ne fonctionne pas
+    // On construit l'URL pour qu'elle ressemble à celle du client Redmine
+    let params = [
+        ["offset", offset],
+        ["limit", limit]
+    ];
+
+    let filters = [
+        {
+            field : 'project_id' ,
+            value : projects_ids
+        },
+        {
+            field : 'tracker_id' ,
+            value : trackers_ids
+        },
+        {
+            field : 'status_id' ,
+            value : status_ids
+        }
+    ]
+
+    filters.forEach(({field, value}) => {
+        if(value.length > 0) {
+            params.push(['f[]', field])
+            params.push([`op[${field}]`, '='])
+
+            value.forEach((id) => params.push([`v[${field}][]`, id]))
+        }
+    })
+    
+    return await get('/issues.json', params);
+}
+
+export {getUser, getProjects, getTrackers, getStatus, getIssues,searchAll};
