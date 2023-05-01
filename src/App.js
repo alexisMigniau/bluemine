@@ -33,9 +33,14 @@ function BoardContainer() {
     }
   }, [])
 
+  const handleLogout = () => {
+    localStorage.removeItem('apikey')
+    setShowLoginModal(true)
+  }
+
   return currentBoard && (
     <AppContainer>
-      <Header />
+      <Header onLogout={handleLogout}/>
       <Content>
         <Sidebar />
         <Board />
