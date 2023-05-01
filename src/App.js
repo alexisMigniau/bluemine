@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import styled from "styled-components";
 import Board from "./components/Board";
-import BoardProvider, { BoardContext } from "./context/boardContext";
+import ViewProvider, { ViewContext } from "./context/ViewContext";
 import { useContext, useEffect, useState } from "react";
 import LoginModal from "./components/modal/LoginModal";
 
@@ -21,9 +21,9 @@ const Content = styled.div`
   max-height: calc(100% - 91px);
 `
 
-function BoardContainer() {
+function ViewContainer() {
   
-  const { currentBoard } = useContext(BoardContext);
+  const { currentView } = useContext(ViewContext);
 
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -38,7 +38,7 @@ function BoardContainer() {
     setShowLoginModal(true)
   }
 
-  return currentBoard && (
+  return currentView && (
     <AppContainer>
       <Header onLogout={handleLogout}/>
       <Content>
@@ -54,9 +54,9 @@ function App() {
 
   return (
     <Theme>
-      <BoardProvider>
-        <BoardContainer />
-      </BoardProvider>
+      <ViewProvider>
+        <ViewContainer />
+      </ViewProvider>
     </Theme>
   );
 }

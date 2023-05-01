@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { BoardContext } from "../context/boardContext";
+import { ViewContext } from "../context/ViewContext";
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import Column from "./Column"
@@ -18,18 +18,18 @@ const List = styled(VerticalScroll)`
 `
 
 function Board() {
-    const { currentBoard, moveTask } = useContext(BoardContext);
+    const { currentView } = useContext(ViewContext);
 
     const handleDragEnd = ({ source, destination }) => {
         if(source && destination) {
-            moveTask(source.droppableId.split("-").pop() , source.index, destination.droppableId.split("-").pop(),destination.index)
+           
         }
     };
 
     return (
         <List>
             <DragDropContext onDragEnd={handleDragEnd}>
-                {currentBoard.columns.map((column, index) => (
+                {currentView.columns && currentView.columns.map((column, index) => (
                     <Column key={`${column.name}-${index}`} index={index} tasks={column.tasks} name={column.name}/>
                 ))}
             </DragDropContext>

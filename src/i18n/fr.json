@@ -1,6 +1,6 @@
 {
     "common": {
-        "allBoards": "Tous les tableaux",
+        "allViews": "Toutes les vues",
         "required": "Champ requis",
         "fieldIsRequired": "Ne peut pas être vide",
         "noneValue": "Aucune valeur sélectionnée",

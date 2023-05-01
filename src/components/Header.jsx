@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
 import Button from "./basics/Button";
 import { useContext } from "react";
-import { BoardContext } from "../context/boardContext";
+import { ViewContext } from "../context/ViewContext";
 
 const HeaderDiv = styled.div`
     background-color: ${props => props.theme.colors.backgroundMain};
@@ -37,7 +37,7 @@ const BoardName = styled.h1`
 
 function Header({ onLogout }) {
 
-    const { currentBoard } = useContext(BoardContext);
+    const { currentView } = useContext(ViewContext);
     const { t } = useTranslation()
 
     return (
@@ -45,7 +45,7 @@ function Header({ onLogout }) {
             <SliderTop>
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
-            <BoardName>{currentBoard.name}</BoardName>
+            <BoardName>{currentView.name}</BoardName>
             <Button onClick={onLogout}>{t('login.logout')}</Button>
         </HeaderDiv>
     )

@@ -3,7 +3,8 @@ import Modal from "../basics/Modal";
 import Input from "../basics/Input";
 import Button from "../basics/Button"
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ViewContext } from "../../context/ViewContext";
 import ProjetSelect from "../selector/ProjectSelect";
 import Tabs from "../basics/Tabs";
 import TrackerSelect from "../selector/TrackerSelect";
@@ -40,6 +41,8 @@ const TabPanel = styled.div`
 function AddViewModal(props) {
     const { t } = useTranslation();
 
+    const { addView } = useContext(ViewContext);
+
     const [name, setName] = useState("");
 
     // Partie projet
@@ -72,14 +75,29 @@ function AddViewModal(props) {
     }
 
     const handleSubmit = (e) => {
-        console.log("TEST")
         e.preventDefault()
 
         if(name === "")
         {
             setErrors({...errors, name : t("common.fieldIsRequired")})
         } else {
+            // Ajout la vue via le contexte
+            addView({
+                name : name,
+                projects : {
+                    auto : projectAuto,
+                    manual : projectsManual
+                },
+                trackers : trackers,
+                status : status
+            })
+
+            // On vide le formulaire
             setName("")
+            setProjectAuto("")
+            setProjectsManual([])
+            setTrackers([])
+            setStatus([])
 
             props.onClose()
         }
@@ -90,7 +108,7 @@ function AddViewModal(props) {
      * @param {array} Labels
      */
     const constructSentence = (items) => {
-        return items.map((label, i, row) => <span><SpanResume>{label}</SpanResume>{ i + 1 === row.length ? '' :  i + 2 === row.length ? ' et ' : ', '}</span>)
+        return items.map((label, i, row) => <span key={i}><SpanResume>{label}</SpanResume>{ i + 1 === row.length ? '' :  i + 2 === row.length ? ' et ' : ', '}</span>)
     }
 
     // Retourne un rapide résumé

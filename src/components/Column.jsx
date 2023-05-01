@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { BoardContext } from "../context/boardContext";
+import { ViewContext } from "../context/ViewContext";
 import Task from "./Task"
 import VerticalScroll from "./basics/VerticalScroll";
 
@@ -38,7 +38,7 @@ function getColor(){
 
 function Column({index}) {
 
-    const { currentBoard } = useContext(BoardContext);
+    const { currentBoard } = useContext(ViewContext);
 
     return (
         <ColumnContainer>
@@ -46,8 +46,8 @@ function Column({index}) {
             <Droppable droppableId={`${currentBoard.name}-${index}`}>
                 {(provided) => (
                     <ColumnList ref={provided.innerRef} {...provided.droppableProps} hover={true}>
-                        {currentBoard.columns[index].tasks.map((task, index) => (
-                            <Task key={`${task.title}-${index}`} task={task} index={index}/>
+                        {currentBoard.columns[index].tasks.map((task, index_task) => (
+                            <Task key={`${task.title}-${index_task}`} task={task} index={index_task} column_index={index}/>
                         ))}
                         {provided.placeholder}
                     </ColumnList>

@@ -7,7 +7,7 @@ import {ReactComponent as HideLogo} from "../assets/icon-hide-sidebar.svg";
 import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
 import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import ThemeSwitch from "./ThemeSwitch";
-import { BoardContext } from "../context/boardContext";
+import { ViewContext } from "../context/ViewContext";
 import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
 
@@ -94,7 +94,7 @@ function Sidebar() {
     const { t } = useTranslation();
     const theme = useTheme()
 
-    const {currentBoard, list, setCurrent} = useContext(BoardContext);
+    const {currentView, views, setCurrentView} = useContext(ViewContext);
 
     const [hidden, isHidden] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -106,13 +106,13 @@ function Sidebar() {
     
     return (
         <Background expanded={!hidden}>
-            <BoardTitle>{t('common.allBoards')} ( {list.length} )</BoardTitle>
+            <BoardTitle>{t('common.allViews')} ( {views.length} )</BoardTitle>
             <BoardList>
                 <ScrollList hover={true} color={theme.colors.backgroundSecondary}>
-                    {list && list.map(board => (
-                        <BoardItem key={board} disabled={currentBoard.name === board} onClick={() => setCurrent(board)}>
-                            <BoardLogo fill={currentBoard.name === board ? theme.colors.textPrimary : theme.colors.grey}/>
-                            {board}
+                    {views && views.map(view => (
+                        <BoardItem key={view.name} disabled={currentView.name === view.name} onClick={() => setCurrentView(view)}>
+                            <BoardLogo fill={currentView.name === view.name ? theme.colors.textPrimary : theme.colors.grey}/>
+                            {view.name}
                         </BoardItem>
                     ))}
                 </ScrollList>
