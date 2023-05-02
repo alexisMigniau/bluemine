@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getIssues } from "../service/api";
+import { getIssues, getProjects, searchAll } from "../service/api";
 
 export const ViewContext = createContext()
 
@@ -56,9 +56,45 @@ const ViewProvider = ({children}) => {
 
     const fetchIssues = async () => {
         // Si il y a une valeur dans projetAuto alors on chercher les projets avec ce nom
-        
+        let projects_ids = currentView.projects.manual.map(t => t.id)
 
-        getIssues([], currentView.trackers.map(t => t.id), currentView.status.map(s => s.id))
+        if(currentView.projects.auto) {
+            let searched_project = await searchAll(currentView.projects.auto, 'projects', 200);
+            projects_ids.push(...searched_project.results.map(s => s.id))
+        }
+
+        // Fetch des issues
+        let response = await getIssues(projects_ids, currentView.trackers.map(t => t.id), currentView.status.map(s => s.id))
+
+        // Groupement des issues par statut
+        setIssues(response.issues.reduce((arr , issue) => {
+            let index_find = arr.findIndex(column => column.status.id === issue.status.id)
+
+            if(index_find != -1)
+            {
+                arr[index_find].issues.push(extractDataFromIssue(issue))
+            } else {
+                arr.push({ status : issue.status, issues : [extractDataFromIssue(issue)]})
+            }
+            return arr;
+        }, []));
+    }
+
+    // Extrait les données utiles d'un ticket pour alléger les données
+    const extractDataFromIssue = (issue) => {
+        return {
+            id : issue.id,
+            link : `${process.env.REACT_APP_REDMINE_URL}/issues/${issue.id}`,
+            subject : issue.subject,
+            priority : issue.priority,
+            project : issue.project,
+            tracker : issue.tracker,
+            done_ratio : issue.done_ratio,
+            author : issue.author,
+            assigned_to : issue.assigned_to,
+            created_on : issue.created_on,
+            updated_on : issue.updated_on,
+        }
     }
 
     return (
@@ -67,6 +103,7 @@ const ViewProvider = ({children}) => {
             setCurrentView,
             addView,
             views,
+            issues
         }}>
             {children}
         </ViewContext.Provider>
