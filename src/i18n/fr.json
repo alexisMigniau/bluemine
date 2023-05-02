@@ -62,5 +62,9 @@
         "name" : "Statut",
         "label" : "Sélection des statuts",
         "description" : "Sert à filtrer les tickets en fonction de leur statut. Si aucun statut n'est choisit, il n'aura pas de filtre sur les statut des tickets."
+    },
+    "issue" : {
+        "openTicket" : "Ouvrir le ticket #{{ id }} dans Redmine",
+        "setFilterToProject" : "Filtrer la vue sur {{ project }}"
     }
 }

@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { ViewContext } from "../context/ViewContext";
-import Task from "./Task"
+import Issue from "./Issue"
 import VerticalScroll from "./basics/VerticalScroll";
 
 const ColumnContainer = styled.div`
-    min-width: 280px;
+    width: 280px;
     height: 100%;
 `
 
@@ -32,22 +30,33 @@ const ColumnList = styled(VerticalScroll)`
     padding-right: 10px;
 `
 
-function getColor(){ 
-    return `hsla(${~~(360 * Math.random())}, 70%,  72%, 0.8)`
+const CountLabel = styled.span`
+    white-space: nowrap;
+`
+
+const getColor = (str) => {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var colour = '#';
+    for (var i = 0; i < 3; i++) {
+        var value = (hash >> (i * 8)) & 0xFF;
+        colour += ('00' + value.toString(16)).substr(-2);
+    }
+    return colour;
 }
 
-function Column({index}) {
-
-    const { currentBoard } = useContext(ViewContext);
+function Column({status, issues}) {
 
     return (
         <ColumnContainer>
-            <ColumnTitle><Dot color={getColor()}/>{currentBoard.columns[index].name} ( {currentBoard.columns[index].tasks.length} )</ColumnTitle>
-            <Droppable droppableId={`${currentBoard.name}-${index}`}>
+            <ColumnTitle><Dot color={getColor(status.name)}/>{status.name} <CountLabel> ( {issues.length} )</CountLabel></ColumnTitle>
+            <Droppable droppableId={`${status.name}-${status.id}`}>
                 {(provided) => (
                     <ColumnList ref={provided.innerRef} {...provided.droppableProps} hover={true}>
-                        {currentBoard.columns[index].tasks.map((task, index_task) => (
-                            <Task key={`${task.title}-${index_task}`} task={task} index={index_task} column_index={index}/>
+                        {issues.map(issue => (
+                            <Issue key={`issue-${issue.id}`} issue={issue} />
                         ))}
                         {provided.placeholder}
                     </ColumnList>
