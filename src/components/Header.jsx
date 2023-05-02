@@ -21,7 +21,7 @@ const Logo = styled.img`
 `
 
 const SliderTop = styled.div`
-    width: 266px;
+    width: 257px;
     padding-left: 34px;
     border-right: 1px solid ${props => props.theme.colors.stroke};
     height: 100%;

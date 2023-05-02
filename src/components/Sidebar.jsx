@@ -12,7 +12,7 @@ import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
 
 const Background = styled.div`
-    min-width: ${props => props.expanded ? "299px" : "0px"};
+    max-width: ${props => props.expanded ? "300px" : "0px"};
     overflow: hidden;
     background-color: ${props => props.theme.colors.backgroundMain};
     border-right: 1px solid ${props => props.theme.colors.stroke};

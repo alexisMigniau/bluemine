@@ -51,7 +51,7 @@ function ResumeView ({projectAuto = "", projectsManual = [], trackers = [], stat
     const getStatusResume = () => {
         if(status.length === 0)
         {
-            return <SpanResume>peut importe leurs états</SpanResume>
+            return <SpanResume>peu importe leurs états</SpanResume>
         } else if(status.length === 1) {
             return <span>à l'état <SpanResume>{status[0].label}</SpanResume></span>
         } else {
