@@ -8,8 +8,8 @@ const IssueContainer = styled.div`
     margin-top: 20px;
     border-radius: 8px;
     display: flex;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
     flex-direction: column;
     transition: background-color 0.5s, border-color 0.5s;
     border: 3px solid ${props => props.isDrag ? props.theme.colors.primary : 'transparent'};
@@ -17,7 +17,7 @@ const IssueContainer = styled.div`
         border-color: ${props => props.theme.colors.primary};
         background-color: ${props => props.theme.colors.backgroundSecondary};
     }
-    max-width: 280px;
+    max-width: 300px;
 `
 
 const IssueTitle = styled.h4`
@@ -35,6 +35,11 @@ const IssueHeader = styled.div`
     justify-content: space-between;
 `
 
+const IssueFooter = styled(IssueHeader)`
+    padding-top : unset;
+    padding-bottom : 6px;
+`
+
 const RedmineLink = styled.a`
     text-decoration: none;
     color : ${props => props.theme.colors.primary};
@@ -45,7 +50,7 @@ const RedmineLink = styled.a`
     }
 `
 
-const ProjectLabel = styled.button`
+const Label = styled.button`
     all: unset;
     background-color: ${props => props.color};
     padding : 2px 10px 2px 10px;
@@ -56,6 +61,12 @@ const ProjectLabel = styled.button`
         cursor: pointer;
         scale: 1.1;
     }
+`
+
+const AssignedToLabel = styled.h4`
+    margin : unset;
+    color : ${props => props.color};
+    text-transform : uppercase;
 `
 
 function Issue({issue}) {
@@ -82,9 +93,13 @@ function Issue({issue}) {
                     <IssueContainer ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} isDrag={snapshot.isDragging}>
                         <IssueHeader>
                             <RedmineLink href={issue.link} target="_blank" title={t('issue.openTicket', {id : issue.id})}>#{issue.id}</RedmineLink>
-                            <ProjectLabel color={getColor(issue.project.name)} title={t('issue.setFilterToProject', {project : issue.project.name})}>{issue.project.name}</ProjectLabel>
+                            <Label color={getColor(issue.project.name)} title={t('issue.setFilterToProject', {project : issue.project.name})}>{issue.project.name}</Label>
                         </IssueHeader>
                         <IssueTitle>{issue.subject}</IssueTitle>
+                        <IssueFooter>
+                            <Label color={getColor(issue.tracker.name)} title={t('issue.setFilterToTracker', {tracker : issue.tracker.name})}>{issue.tracker.name}</Label>
+                            {issue.assigned_to && <AssignedToLabel title={issue.assigned_to.name} color={getColor(issue.assigned_to.name)}>{issue.assigned_to.name.match(/\b\w/g).join('')}</AssignedToLabel>}
+                        </IssueFooter>
                     </IssueContainer>
                 )}
             </Draggable>

@@ -65,6 +65,7 @@
     },
     "issue" : {
         "openTicket" : "Ouvrir le ticket #{{ id }} dans Redmine",
-        "setFilterToProject" : "Filtrer la vue sur {{ project }}"
+        "setFilterToProject" : "Filtrer la vue sur le projet {{ project }}",
+        "setFilterToTracker" : "Filtrer la vue sur le tracker {{ tracker }}"
     }
 }

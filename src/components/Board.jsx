@@ -8,7 +8,7 @@ import VerticalScroll from "./basics/VerticalScroll";
 
 const List = styled(VerticalScroll)`
     display: flex;
-    column-gap: 25px;
+    column-gap: 10px;
     margin-top: 10px;
     margin-left: 30px;
     max-height: 100%;
