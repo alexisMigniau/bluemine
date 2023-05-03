@@ -6,7 +6,6 @@ import {ReactComponent as BoardLogo} from "../assets/icon-board.svg";
 import {ReactComponent as HideLogo} from "../assets/icon-hide-sidebar.svg";
 import {ReactComponent as ShowLogo} from "../assets/icon-show-sidebar.svg";
 import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
-import ThemeSwitch from "./ThemeSwitch";
 import { ViewContext } from "../context/ViewContext";
 import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
@@ -121,7 +120,6 @@ function Sidebar() {
                     {t("action.createView")}
                 </AddViewButton>
             </BoardList>
-            <ThemeSwitch/>
             <HideButton size="L" onClick={(e) => isHidden(true)}><HideLogo />{t('action.hideSidebar')}</HideButton>
             <ShowButton size="S" onClick={(e) => isHidden(false)} expanded={hidden}><ShowLogo/></ShowButton>
             <AddViewModal show={showModal} onClose={() => setShowModal(false)}></AddViewModal>

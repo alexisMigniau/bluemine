@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { ThemeProvider } from "styled-components";
-import {light, dark} from "../theme"
+import {dark} from "../theme"
 
 const base = {
   fonts: ["Plus Jakarta Sans"],
@@ -13,24 +13,13 @@ const base = {
 };
 
 const themesMap = {
-    light,
     dark
 }
 
 export const ThemePreferenceContext = React.createContext()
 
 const Theme = ({ children }) => {
-    const [currentTheme, setCurrentTheme] = useState('light')
-
-    useEffect(() => {
-        // Récupération de la préférence utilisateur
-        const themeQuery = window.matchMedia('(prefers-color-scheme: light)')
-
-        setCurrentTheme(themeQuery.matches ? 'light' : 'dark')
-        themeQuery.addEventListener('change', ({ matches }) => {
-            setCurrentTheme(matches ? 'light' : 'dark')
-        })
-    }, [])
+    const [currentTheme, setCurrentTheme] = useState('dark')
 
     const theme = { ...base, colors: themesMap[currentTheme] }
 
