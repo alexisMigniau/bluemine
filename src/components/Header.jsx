@@ -45,7 +45,7 @@ const BoardName = styled.h1`
 
 function Header() {
 
-    const { currentView } = useContext(ViewContext);
+    const { currentView, issues, total } = useContext(ViewContext);
 
     return currentView && (
         <HeaderDiv>
@@ -53,7 +53,7 @@ function Header() {
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
             <TitleContainer>
-                <BoardName>{currentView.name}</BoardName>
+                <BoardName>{currentView.name} ({issues.length}/{total})</BoardName>
                 {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
             </TitleContainer>
         </HeaderDiv>

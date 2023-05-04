@@ -28,9 +28,9 @@ function ResumeView ({projectAuto = "", projectsManual = [], trackers = [], stat
         } else {
             if(projectsManual.length === 1 )
             {
-                return <span>du projet <SpanResume>{projectsManual[0].label}</SpanResume></span>
+                return <span>du projet <SpanResume>{projectsManual[0].label}</SpanResume>{projectAuto !== "" && <span> et tout ceux avec le nom <SpanResume>'{projectAuto}'</SpanResume></span>}</span>
             } else if(projectsManual.length > 1) {
-                return <span>des projets {constructSentence(projectsManual.map(t => t.label))}</span>
+                return <span>des projets {constructSentence(projectsManual.map(t => t.label))} {projectAuto !== "" && <span> et tout ceux avec le nom <SpanResume>'{projectAuto}'</SpanResume></span>}</span>
             }
 
             return <span>des projets avec le nom <SpanResume>'{projectAuto}'</SpanResume></span>

@@ -91,6 +91,9 @@ const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], 
             value.forEach((id) => params.push([`v[${field}][]`, id]))
         }
     })
+
+    // Tri par sujet pour l'instant pour avoir un semblant de random vu que tout a été générer en même temps
+    params.push(['sort', 'subject,id:desc'])
     
     return await get('/issues.json', params);
 }

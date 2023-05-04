@@ -18,7 +18,7 @@ const List = styled(VerticalScroll)`
 `
 
 function Board() {
-    const { issues } = useContext(ViewContext);
+    const { total, column, issues } = useContext(ViewContext);
 
     const handleDragEnd = ({ source, destination }) => {
         if(source && destination) {
@@ -29,7 +29,7 @@ function Board() {
     return (
         <List>
             <DragDropContext onDragEnd={handleDragEnd}>
-                {issues && issues.map(({status, issues}) => (
+                {column && column.map(({status, issues}) => (
                     <Column key={`${status.name}-${status.id}`} status={status} issues={issues} />
                 ))}
             </DragDropContext>

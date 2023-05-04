@@ -23,6 +23,7 @@ const IssueContainer = styled.div`
 const IssueTitle = styled.h4`
     color: ${props => props.theme.colors.textPrimary};
     font-size: ${props => props.theme.fontSizes.large};
+    overflow-wrap: break-word;
     margin-bottom: 10px; 
     margin-top: 15px;
 `
