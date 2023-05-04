@@ -70,6 +70,10 @@ const BoardTitle = styled.h2`
     white-space: nowrap;
 `
 
+const LogoutButton = styled(Button)`
+    margin : 10px;
+`
+
 const ShowButton = styled(Button)`
     position: absolute;
     left: ${props => props.expanded ? "0px" : "-100px"};
@@ -89,7 +93,7 @@ const ScrollList = styled(VerticalScroll)`
     padding-right: 10px;
 `
 
-function Sidebar() {
+function Sidebar({ onLogout }) {
     const { t } = useTranslation();
     const theme = useTheme()
 
@@ -120,6 +124,7 @@ function Sidebar() {
                     {t("action.createView")}
                 </AddViewButton>
             </BoardList>
+            <LogoutButton size="S" onClick={onLogout}>{t('login.logout')}</LogoutButton>
             <HideButton size="L" onClick={(e) => isHidden(true)}><HideLogo />{t('action.hideSidebar')}</HideButton>
             <ShowButton size="S" onClick={(e) => isHidden(false)} expanded={hidden}><ShowLogo/></ShowButton>
             <AddViewModal show={showModal} onClose={() => setShowModal(false)}></AddViewModal>

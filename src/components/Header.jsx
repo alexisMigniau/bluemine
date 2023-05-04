@@ -43,10 +43,9 @@ const BoardName = styled.h1`
     margin: 0px;
 `
 
-function Header({ onLogout }) {
+function Header() {
 
     const { currentView } = useContext(ViewContext);
-    const { t } = useTranslation()
 
     return currentView && (
         <HeaderDiv>
@@ -57,7 +56,6 @@ function Header({ onLogout }) {
                 <BoardName>{currentView.name}</BoardName>
                 {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
             </TitleContainer>
-            <Button onClick={onLogout}>{t('login.logout')}</Button>
         </HeaderDiv>
     )
 }

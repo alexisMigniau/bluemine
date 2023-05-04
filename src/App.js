@@ -40,9 +40,9 @@ function ViewContainer() {
 
   return currentView && (
     <AppContainer>
-      <Header onLogout={handleLogout}/>
+      <Header/>
       <Content>
-        <Sidebar />
+        <Sidebar onLogout={handleLogout} />
         <Board />
         <LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)}/>
       </Content>
