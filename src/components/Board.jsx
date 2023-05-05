@@ -12,13 +12,12 @@ const List = styled(VerticalScroll)`
     margin-top: 10px;
     margin-left: 30px;
     max-height: 100%;
-    max-width: 80%;
     overflow-x: auto;
     margin-bottom: 15px;
 `
 
 function Board() {
-    const { total, column, issues } = useContext(ViewContext);
+    const { column } = useContext(ViewContext);
 
     const handleDragEnd = ({ source, destination }) => {
         if(source && destination) {

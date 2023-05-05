@@ -21,12 +21,17 @@ const SubtaskContainer = styled.div`
     row-gap: 10px;
 `
 
-function ViewTask({task, ...props}) {
+function ViewTask({task, setTask, ...props}) {
 
     const { t } = useTranslation();
 
-    const handleChange = (index, checked) => {
-        console.log(task)
+    const handleSubtaskChange = (index, checked) => {
+        setTask({...task, subtasks : task.subtasks.map((s, i) => {
+            if(i === index)
+                return {...s, isCompleted : checked}
+            else
+                return s;
+        })});
     }
 
     return (
@@ -35,7 +40,7 @@ function ViewTask({task, ...props}) {
         <SubtaskTitle>{t('task.subtaskTitle', {total : task.subtasks.length, completed : task.subtasks.filter(subtask => subtask.isCompleted).length})}</SubtaskTitle>
         <SubtaskContainer>
             {task.subtasks && task.subtasks.map((sub, index) => (
-                <SubtaskCheck key={`subtask-${index}`} subtask={sub} onChange={(checked) => handleChange(index, checked)}/>
+                <SubtaskCheck key={`subtask-${index}`} subtask={sub} onChange={(checked) => handleSubtaskChange(index, checked)}/>
             ))}
         </SubtaskContainer>
     </Modal>

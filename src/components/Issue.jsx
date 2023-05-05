@@ -94,11 +94,11 @@ function Issue({issue}) {
                     <IssueContainer ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} isDrag={snapshot.isDragging}>
                         <IssueHeader>
                             <RedmineLink href={issue.link} target="_blank" title={t('issue.openTicket', {id : issue.id})}>#{issue.id}</RedmineLink>
-                            <Label color={getColor(issue.project.name)} title={t('issue.setFilterToProject', {project : issue.project.name})}>{issue.project.name}</Label>
+                            <Label color={getColor(issue.project.name) + "70"} title={t('issue.setFilterToProject', {project : issue.project.name})}>{issue.project.name}</Label>
                         </IssueHeader>
                         <IssueTitle>{issue.subject}</IssueTitle>
                         <IssueFooter>
-                            <Label color={getColor(issue.tracker.name)} title={t('issue.setFilterToTracker', {tracker : issue.tracker.name})}>{issue.tracker.name}</Label>
+                            <Label color={getColor(issue.tracker.name) + "20"} title={t('issue.setFilterToTracker', {tracker : issue.tracker.name})}>{issue.tracker.name}</Label>
                             {issue.assigned_to && <AssignedToLabel title={issue.assigned_to.name} color={getColor(issue.assigned_to.name)}>{issue.assigned_to.name.match(/\b\w/g).join('')}</AssignedToLabel>}
                         </IssueFooter>
                     </IssueContainer>

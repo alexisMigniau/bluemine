@@ -9,13 +9,14 @@ import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import { ViewContext } from "../context/ViewContext";
 import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
+import { useEffect } from "react";
 
 const Background = styled.div`
-    max-width: ${props => props.expanded ? "300px" : "0px"};
+    width: ${props => props.expanded ? '291px' : '0px'};
     overflow: hidden;
     background-color: ${props => props.theme.colors.backgroundMain};
     border-right: 1px solid ${props => props.theme.colors.stroke};
-    display: flex;
+    display: 'flex';
     flex-direction: column;
     margin-bottom: 20px;
     transition: 0.4s all;
@@ -99,36 +100,49 @@ function Sidebar({ onLogout }) {
 
     const {currentView, views, setCurrentView} = useContext(ViewContext);
 
-    const [hidden, isHidden] = useState(false);
+    const storage = localStorage.getItem('sideBarCollapsed');
+    const [isExpanded, setIsExpanded] = useState(storage ? false : true);
     const [showModal, setShowModal] = useState(false);
 
     const handleAddView = (e) => {
         e.target.blur();
         setShowModal(true)
     }
+
+    const handleToggler = () => {
+        if(isExpanded) {
+            setIsExpanded(false);
+            localStorage.setItem('sideBarCollapsed', true);
+        } else {
+            setIsExpanded(true);
+            localStorage.removeItem('sideBarCollapsed');
+        }
+    }
     
     return (
-        <Background expanded={!hidden}>
-            <BoardTitle>{t('common.allViews')} ( {views.length} )</BoardTitle>
-            <BoardList>
-                <ScrollList hover={true} color={theme.colors.backgroundSecondary}>
-                    {views && views.map(view => (
-                        <BoardItem key={view.name} disabled={currentView.name === view.name} onClick={() => setCurrentView(view)}>
-                            <BoardLogo fill={currentView.name === view.name ? theme.colors.textPrimary : theme.colors.grey}/>
-                            {view.name}
-                        </BoardItem>
-                    ))}
-                </ScrollList>
-                <AddViewButton onClick={handleAddView}>
-                    <AddLogo fill={theme.colors.primary}/> 
-                    {t("action.createView")}
-                </AddViewButton>
-            </BoardList>
-            <LogoutButton size="S" onClick={onLogout}>{t('login.logout')}</LogoutButton>
-            <HideButton size="L" onClick={(e) => isHidden(true)}><HideLogo />{t('action.hideSidebar')}</HideButton>
-            <ShowButton size="S" onClick={(e) => isHidden(false)} expanded={hidden}><ShowLogo/></ShowButton>
+        <div>
+            <Background expanded={isExpanded}>
+                <BoardTitle>{t('common.allViews')} ( {views.length} )</BoardTitle>
+                <BoardList>
+                    <ScrollList hover={true} color={theme.colors.backgroundSecondary}>
+                        {views && views.map(view => (
+                            <BoardItem key={view.name} disabled={currentView.name === view.name} onClick={() => setCurrentView(view)}>
+                                <BoardLogo fill={currentView.name === view.name ? theme.colors.textPrimary : theme.colors.grey}/>
+                                {view.name}
+                            </BoardItem>
+                        ))}
+                    </ScrollList>
+                    <AddViewButton onClick={handleAddView}>
+                        <AddLogo fill={theme.colors.primary}/> 
+                        {t("action.createView")}
+                    </AddViewButton>
+                </BoardList>
+                <LogoutButton size="S" onClick={onLogout}>{t('login.logout')}</LogoutButton>
+                <HideButton size="L" onClick={handleToggler}><HideLogo />{t('action.hideSidebar')}</HideButton>
+            </Background>
+            <ShowButton size="S" onClick={handleToggler} expanded={!isExpanded}><ShowLogo/></ShowButton>
             <AddViewModal show={showModal} onClose={() => setShowModal(false)}></AddViewModal>
-        </Background>
+        </div>
     )
 }
 

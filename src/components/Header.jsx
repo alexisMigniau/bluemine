@@ -1,7 +1,5 @@
-import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
-import Button from "./basics/Button";
 import { useContext } from "react";
 import { ViewContext } from "../context/ViewContext";
 import ResumeView from "./ResumeView";
@@ -38,7 +36,7 @@ const TitleContainer = styled.div`
     padding-top: 10px;
 `
 
-const BoardName = styled.h1`
+const BoardName = styled.h2`
     color: ${props => props.theme.colors.textPrimary};
     margin: 0px;
 `
@@ -53,7 +51,7 @@ function Header() {
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
             <TitleContainer>
-                <BoardName>{currentView.name} ({issues.length}/{total})</BoardName>
+                <BoardName>{currentView.name} - {issues.length === total ? total : `${issues.length}/${total}`}</BoardName>
                 {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
             </TitleContainer>
         </HeaderDiv>

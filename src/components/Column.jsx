@@ -13,7 +13,7 @@ const ColumnTitle = styled.h3`
     color: ${props => props.theme.colors.grey};
     text-transform: uppercase;
     letter-spacing: 2px;
-    height: 20px;
+    height: 30px;
 `
 
 const Dot = styled.span`
@@ -40,7 +40,7 @@ const getColor = (str) => {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     var colour = '#';
-    for (var i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++) {
         var value = (hash >> (i * 8)) & 0xFF;
         colour += ('00' + value.toString(16)).substr(-2);
     }
