@@ -53,7 +53,7 @@ const ViewProvider = ({children}) => {
 
     useEffect(() => {
         // Sauvegarde dans le localStorage
-        if(Object.keys(currentView).length > 0) {
+        if(currentView && Object.keys(currentView).length > 0) {
             localStorage.setItem('lastView', currentView.name)
 
             // Fetch des issues en utilisant la vue courante
@@ -87,6 +87,22 @@ const ViewProvider = ({children}) => {
     const addView = (view) => {
         setCurrentView(view)
         setViews([...views, view])
+    }
+
+    const removeCurrentView = () => {
+        let newView = views.filter(v => v.name !== currentView.name)
+        setViews(newView)
+        setCurrentView(newView[0])
+    }
+
+    const editCurrentView = (view) => {
+        setViews(views.map(v => {
+            if(v.name === currentView.name)
+                return view
+            else
+                return v
+        }))
+        setCurrentView(view)
     }
 
     const fetchIssues = async () => {
@@ -139,6 +155,8 @@ const ViewProvider = ({children}) => {
             currentView,
             setCurrentView,
             addView,
+            removeCurrentView,
+            editCurrentView,
             total,
             column,
             views,

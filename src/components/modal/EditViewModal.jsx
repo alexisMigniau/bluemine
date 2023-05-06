@@ -4,14 +4,13 @@ import { useContext } from "react";
 import { ViewContext } from "../../context/ViewContext";
 import ViewForm from "../form/ViewForm";
 
-function AddViewModal(props) {
+function EditViewModal(props) {
     const { t } = useTranslation();
 
-    const { addView } = useContext(ViewContext);
+    const { editCurrentView, currentView } = useContext(ViewContext);
 
     const handleSubmit = (view) => {
-       
-        addView(view)
+        editCurrentView(view)
         props.onClose()
     }
 
@@ -20,10 +19,10 @@ function AddViewModal(props) {
     }
 
     return (
-        <Modal {...props} width={"80%"} onClose={onCloseCustom} title={t("view.form.addView")}>
-            <ViewForm onSubmit={handleSubmit}/>
+        <Modal {...props} width={"80%"} onClose={onCloseCustom} title={t("view.form.editView")}>
+            <ViewForm onSubmit={handleSubmit} view={currentView}/>
         </Modal>
     )
 }
 
-export default AddViewModal;
+export default EditViewModal;

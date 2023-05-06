@@ -5,7 +5,12 @@
         "fieldIsRequired": "Ne peut pas être vide",
         "noneValue": "Aucune valeur sélectionnée",
         "noMoreResult": "Aucun résultat",
-        "unselectAll": "Désélectionner tout"
+        "unselectAll": "Désélectionner tout",
+        "edit" : "Modifier",
+        "delete" : "Supprimer",
+        "sync" : "Synchroniser",
+        "register" : "Enregistrer",
+        "confirmDelete" : "Confirmation de suppression"
     },
     "action": {
         "addNewTask": "Ajouter une tâche",
@@ -21,9 +26,11 @@
     "view": {
         "form" : {
             "addView": "Ajouter une vue",
+            "editView": "Modifier la vue",
             "name" : "Nom",
             "namePlaceHolder" : "ex. Ligeo gestion"
-        }
+        },
+        "delete" : "Etes vous sur de vouloir supprimer la vue '{{ name }}' ?"
     },
     "column": {
         "form" : {

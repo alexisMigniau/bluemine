@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import logoLight from "../assets/logo-light.svg" 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ViewContext } from "../context/ViewContext";
 import ResumeView from "./ResumeView";
+import Button from "./basics/Button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsRotate, faChartSimple, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from "react-i18next";
+import EditViewModal from "./modal/EditViewModal";
 
 const HeaderDiv = styled.div`
     background-color: ${props => props.theme.colors.backgroundMain};
@@ -36,14 +41,44 @@ const TitleContainer = styled.div`
     padding-top: 10px;
 `
 
-const BoardName = styled.h2`
+const BoardName = styled.div`
+    display : flex;
+    align-items : center;
+    column-gap : 20px;
+`
+
+const BoardTitle = styled.h2`
     color: ${props => props.theme.colors.textPrimary};
     margin: 0px;
 `
 
+const HeaderButton = styled(Button)`
+    display : flex;
+    column-gap : 10px;
+    align-items : center;
+    font-size : 15px;
+`
+
+const ExpansiveButton = styled(HeaderButton)`
+    overflow : hidden;
+    justify-content : start;
+    padding-left : 7px;
+    width : auto;
+    max-width : 30px;
+    border-radius : 200px;
+    transition : all 0.5s;
+    &:hover {
+        max-width : 300px;
+    }
+    font-size : 17px;
+`
+
 function Header() {
 
-    const { currentView, issues, total } = useContext(ViewContext);
+    const { currentView, total, issues, removeCurrentView } = useContext(ViewContext);
+    const {t} = useTranslation();
+
+    const [showEditViewModal, setShowEditViewModal] = useState(false)
 
     return currentView && (
         <HeaderDiv>
@@ -51,9 +86,16 @@ function Header() {
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
             <TitleContainer>
-                <BoardName>{currentView.name} - {issues.length === total ? total : `${issues.length}/${total}`}</BoardName>
+                <BoardName>
+                    <BoardTitle>{currentView.name}</BoardTitle>
+                    <HeaderButton size="S" color="primary"><FontAwesomeIcon icon={faChartSimple} />{issues.length}</HeaderButton>
+                    <ExpansiveButton size="S" color="success"><FontAwesomeIcon icon={faArrowsRotate} spin={issues.length !== total}/>{t('common.sync')}</ExpansiveButton>
+                    <ExpansiveButton size="S" color="warning" onClick={() => setShowEditViewModal(true)}><FontAwesomeIcon icon={faPen} />{t('common.edit')}</ExpansiveButton>
+                    <ExpansiveButton size="S" color="error" onClick={removeCurrentView}><FontAwesomeIcon icon={faTrash} />{t('common.delete')}</ExpansiveButton>
+                </BoardName>
                 {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
             </TitleContainer>
+            <EditViewModal show={showEditViewModal} onClose={() => setShowEditViewModal(false)}/>
         </HeaderDiv>
     )
 }
