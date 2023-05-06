@@ -29,6 +29,7 @@ function StatusSelect({values, onChange}) {
     return options && (
         <Select
             name="status"
+            values={status}
             label={t('status.label')}
             onChange={handleStatusChange}
             options={options}

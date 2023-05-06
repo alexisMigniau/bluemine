@@ -32,6 +32,7 @@ function TrackerSelect({values, onChange}) {
             label={t('tracker.label')}
             onChange={handleTrackersChange}
             options={options}
+            values={trackers}
         />
     )
 }  export default TrackerSelect;

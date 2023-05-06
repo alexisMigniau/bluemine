@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import Select from "../basics/Select";
 import { getProjects, searchAll } from "../../service/api"
 
-function ProjetSelect({values, onChange}) {
+function ProjectSelect({values, onChange}) {
     const { t } = useTranslation();
 
-    const [project, setProjects] = useState(values);
+    const [projects, setProjects] = useState(values);
 
     const handleSearchProject = async (search) => {
         // Petit tricks pour chercher le projet
@@ -26,16 +26,17 @@ function ProjetSelect({values, onChange}) {
     }
 
     useEffect(() => {
-        onChange(project)
-    }, [project])
+        onChange(projects)
+    }, [projects])
 
     return (
         <Select
             name="projet-manual"
+            values={projects}
             label={t("project.manual.name")}
             placeholder={t("project.manual.placeholder")}
             onChange={handleProjectChange}
             onSearchChange={handleSearchProject}
         />
     )
-}  export default ProjetSelect;
+}  export default ProjectSelect;

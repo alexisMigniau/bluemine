@@ -9,7 +9,6 @@ import {ReactComponent as AddLogo} from "../assets/icon-add-task-mobile.svg";
 import { ViewContext } from "../context/ViewContext";
 import AddViewModal from "./modal/AddViewModal";
 import VerticalScroll from "./basics/VerticalScroll";
-import { useEffect } from "react";
 
 const Background = styled.div`
     width: ${props => props.expanded ? '291px' : '0px'};
@@ -73,6 +72,7 @@ const BoardTitle = styled.h2`
 
 const LogoutButton = styled(Button)`
     margin : 10px;
+    width : 90%;
 `
 
 const ShowButton = styled(Button)`
