@@ -75,7 +75,7 @@ const ExpansiveButton = styled(HeaderButton)`
 
 function Header() {
 
-    const { currentView, total, issues, removeCurrentView } = useContext(ViewContext);
+    const { currentView, total, issues, removeCurrentView, fetchIssues } = useContext(ViewContext);
     const {t} = useTranslation();
 
     const [showEditViewModal, setShowEditViewModal] = useState(false)
@@ -89,7 +89,7 @@ function Header() {
                 <BoardName>
                     <BoardTitle>{currentView.name}</BoardTitle>
                     <HeaderButton size="S" color="primary"><FontAwesomeIcon icon={faChartSimple} />{issues.length}</HeaderButton>
-                    <ExpansiveButton size="S" color="success"><FontAwesomeIcon icon={faArrowsRotate} spin={issues.length !== total}/>{t('common.sync')}</ExpansiveButton>
+                    <ExpansiveButton size="S" color="success" onClick={() => fetchIssues()}><FontAwesomeIcon icon={faArrowsRotate} spin={issues.length !== total}/>{t('common.sync')}</ExpansiveButton>
                     <ExpansiveButton size="S" color="warning" onClick={() => setShowEditViewModal(true)}><FontAwesomeIcon icon={faPen} />{t('common.edit')}</ExpansiveButton>
                     <ExpansiveButton size="S" color="error" onClick={removeCurrentView}><FontAwesomeIcon icon={faTrash} />{t('common.delete')}</ExpansiveButton>
                 </BoardName>

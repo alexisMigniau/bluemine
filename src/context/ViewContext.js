@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getIssues, getProjects, searchAll } from "../service/api";
+import { getIssues, searchAll } from "../service/api";
 
 export const ViewContext = createContext()
 
@@ -157,6 +157,7 @@ const ViewProvider = ({children}) => {
             addView,
             removeCurrentView,
             editCurrentView,
+            fetchIssues,
             total,
             column,
             views,
