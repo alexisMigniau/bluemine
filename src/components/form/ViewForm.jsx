@@ -25,6 +25,21 @@ const ConfirmButton = styled(Button)`
     width: 100%;
 `
 
+const CheckBoxContainer = styled.div`
+    display : flex;
+    flex-direction : row;
+    column-gap : 20px;
+    align-items : center;
+    justify-content : center;
+    padding-top : 20px;
+`
+
+const CustomCheckBox = styled.input``
+
+const LabelCheckBox = styled.label`
+    color : ${props => props.theme.colors.textPrimary};
+`
+
 function ViewForm ({view = {}, onSubmit}) {
 
     const { t } = useTranslation();
@@ -36,6 +51,7 @@ function ViewForm ({view = {}, onSubmit}) {
 
     const [trackers, setTrackers] = useState(view.trackers ?? []);
     const [status, setStatus] = useState(view.status ?? []);
+    const [assignedToMe, setAssignedToMe] = useState(view.assignedToMe ?? false)
 
     const [errors, setErrors] = useState({})
 
@@ -54,7 +70,8 @@ function ViewForm ({view = {}, onSubmit}) {
                     manual : projectsManual
                 },
                 trackers : trackers,
-                status : status
+                status : status,
+                assignedToMe : assignedToMe
             })
         }
     }
@@ -77,6 +94,10 @@ function ViewForm ({view = {}, onSubmit}) {
 
     const handleStatusChange = (values) => {
         setStatus(values)
+    }
+
+    const handleAssignedToMe = (e) => {
+        setAssignedToMe(e.target.checked)
     }
 
     return (
@@ -125,6 +146,19 @@ function ViewForm ({view = {}, onSubmit}) {
                         values={status}
                         onChange={handleStatusChange}
                     />
+                </TabPanel>
+
+                {/* Assigne */}
+                <TabPanel label={t("assigned.assigned")}>
+                    <CheckBoxContainer>
+                        <CustomCheckBox
+                            name="assigned"
+                            type="checkbox"
+                            value={assignedToMe}
+                            onChange={handleAssignedToMe}
+                        />
+                        <LabelCheckBox htmlFor="assigned">Uniquement les tickets qui me sont assignés</LabelCheckBox>
+                    </CheckBoxContainer>
                 </TabPanel>
             </Tabs>
         

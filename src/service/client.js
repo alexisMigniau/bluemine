@@ -34,7 +34,12 @@ const call = async (method = 'GET', url = '', params = {} , data = null, headers
 
     const res = await fetch(url_o, options);
 
-    return await res.json()
+    if(res.ok) 
+    {
+        return await res.json()
+    } else {
+        return false;
+    }
 }
 
 const get = async (url, params, headers) => {

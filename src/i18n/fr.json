@@ -50,7 +50,7 @@
     },
     "project" : {
         "name" : "Projet",
-        "description" : "Ce champ permet de filtrer les tickets qui seront affichés en fonction des projets.",
+        "description" : "La sélection automatique permet de filtrer sur le nom des projets.",
         "manual" : {
             "name" : "Sélection manuelle",
             "placeholder" : "Rechercher un projet par son nom"
@@ -63,16 +63,19 @@
     "tracker" : {
         "name" : "Tracker",
         "label" : "Sélection des trackers",
-        "description" : "Ce champ permet de filtrer les tickets qui sont sur un ou plusieurs trackers que tu aura choisit. Si aucun tracker est sélectionner, il n'y aura pas de filtre sur les trackers."
+        "description" : "Si aucun tracker est sélectionné, il n'y aura pas de filtre sur les trackers."
     },
     "status" : {
         "name" : "Statut",
         "label" : "Sélection des statuts",
-        "description" : "Sert à filtrer les tickets en fonction de leur statut. Si aucun statut n'est choisit, il n'aura pas de filtre sur les statut des tickets."
+        "description" : "Si aucun statut est sélectionné, il n'y aura pas de filtre sur les statuts."
     },
     "issue" : {
         "openTicket" : "Ouvrir le ticket #{{ id }} dans Redmine",
         "setFilterToProject" : "Filtrer la vue sur le projet {{ project }}",
         "setFilterToTracker" : "Filtrer la vue sur le tracker {{ tracker }}"
+    },
+    "assigned" : {
+        "assigned" : "Assigné"
     }
 }

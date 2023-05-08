@@ -107,27 +107,43 @@ const ViewProvider = ({children}) => {
 
     const fetchIssues = async () => {
 
-        // Si il y a une valeur dans projetAuto alors on chercher les projets avec ce nom
-        let projects_ids = currentView.projects.manual.map(t => t.id)
+        if(localStorage.getItem('apikey')) {
+            // Si il y a une valeur dans projetAuto alors on chercher les projets avec ce nom
+            let projects_ids = currentView.projects.manual.map(t => t.id)
 
-        if(currentView.projects.auto) {
-            let searched_project = await searchAll(currentView.projects.auto, 'projects', 100);
-            projects_ids.push(...searched_project.results.map(s => s.id))
+            if(currentView.projects.auto) {
+                let searched_project = await searchAll(currentView.projects.auto, 'projects', 100);
+                projects_ids.push(...searched_project.results.map(s => s.id))
+            }
+
+            setProjectIds(projects_ids);
+
+            let assigned = []
+
+            if(currentView.assignedToMe)
+            {
+                assigned.push("me")
+            }
+
+            // Fetch des issues
+            let response = await getIssues(projects_ids, currentView.trackers.map(t => t.id), currentView.status.map(s => s.id), assigned)
+
+            setIssues(response.issues);
+            setTotal(response.total_count)
         }
-
-        setProjectIds(projects_ids);
-
-        // Fetch des issues
-        let response = await getIssues(projects_ids, currentView.trackers.map(t => t.id), currentView.status.map(s => s.id))
-
-        setIssues(response.issues);
-        setTotal(response.total_count)
     }
 
     const fetchPaginationIssues = async () => {
+
+        let assigned = []
+
+        if(currentView.assignedToMe)
+        {
+            assigned.push("me")
+        }
         
         // Fetch des issues
-        let response = await getIssues(projectIds, currentView.trackers.map(t => t.id), currentView.status.map(s => s.id), issues.length)
+        let response = await getIssues(projectIds, currentView.trackers.map(t => t.id), currentView.status.map(s => s.id), assigned,issues.length)
 
         // Groupement des issues par statut
         setIssues([...issues, ...response.issues]);

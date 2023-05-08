@@ -59,7 +59,7 @@ const getStatus = async () => {
  * @param {int} limit 0
  * @return issues
  */
-const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], offset = 0, limit = 100) => {
+const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], assigned = [],offset = 0, limit = 100) => {
     // Petit tricks
     // Le pipe permet de séléctionner plusieurs id, ça fonctionne bien pour les trackers et les statut par contre pour les projets ça ne fonctionne pas
     // On construit l'URL pour qu'elle ressemble à celle du client Redmine
@@ -80,6 +80,10 @@ const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], 
         {
             field : 'status_id' ,
             value : status_ids
+        },
+        {
+            field : 'assigned_to_id',
+            value : assigned
         }
     ]
 

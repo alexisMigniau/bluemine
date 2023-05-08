@@ -44,8 +44,8 @@ function ViewContainer() {
       <Content>
         <Sidebar onLogout={handleLogout} />
         <Board />
-        <LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)}/>
       </Content>
+      <LoginModal show={showLoginModal} onClose={() => setShowLoginModal(false)}/>
     </AppContainer>
   )
 }

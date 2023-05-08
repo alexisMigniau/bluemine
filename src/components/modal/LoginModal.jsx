@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
 import Modal from "../basics/Modal";
 import Input from "../basics/Input"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../basics/Button";
 import styled from "styled-components";
 import { getUser } from "../../service/api";
+import { ViewContext } from "../../context/ViewContext";
 
 const SignInButton = styled(Button)`
     width : 100%;
@@ -18,6 +19,8 @@ const Description = styled.h4`
 function LoginModal(props) {
 
     const { t } = useTranslation();
+
+    const {fetchIssues} = useContext(ViewContext);
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -38,6 +41,8 @@ function LoginModal(props) {
         setPassword("")
 
         localStorage.setItem("apikey", user.api_key);
+
+        fetchIssues()
 
         props.onClose();
     }
