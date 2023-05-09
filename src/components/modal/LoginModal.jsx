@@ -13,7 +13,17 @@ const SignInButton = styled(Button)`
 `
 
 const Description = styled.h4`
+    color : ${props => props.theme.colors.grey};
+`
+
+const ErrorLabel = styled.h5`
     color : ${props => props.theme.colors.textPrimary};
+    background-color : ${props => props.theme.colors.error + "50"};
+    border-color : ${props => props.theme.colors.errorFade};
+    border-width : 1px;
+    border-style : solid;
+    padding : 10px;
+    border-radius : 10px;
 `
 
 function LoginModal(props) {
@@ -25,6 +35,8 @@ function LoginModal(props) {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
+    const [error, setError] = useState("")
+
     const handleLoginChange = (e) => {
         setLogin(e.target.value)
     }
@@ -35,16 +47,18 @@ function LoginModal(props) {
 
     const handleClickSign = async (e) => {
         e.preventDefault()
-        const user = await getUser(login, password)
+        const res = await getUser(login, password)
 
-        setLogin("")
-        setPassword("")
-
-        localStorage.setItem("apikey", user.api_key);
-
-        fetchIssues()
-
-        props.onClose();
+        if(res.error) {
+            setError(t('error.network' , {code : res.status, text : res.text}))
+        } else {
+            setLogin("")
+            setError("")
+            setPassword("")
+            localStorage.setItem("apikey", res.user.api_key);
+            fetchIssues()
+            props.onClose();
+        }
     }
 
     return (
@@ -68,6 +82,7 @@ function LoginModal(props) {
                 />
                 <SignInButton type="submit">{t('login.button')}</SignInButton>
             </form>
+            {error && <ErrorLabel>{error}</ErrorLabel>}
         </Modal>
     )
 }

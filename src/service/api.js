@@ -18,11 +18,11 @@ const searchAll = async (q, object, limit = 20, offset = 0) => {
  * @returns user
  */
 const getUser = async (login, password) => {
-    let { user } = await get('/users/current.json', null, {
+    let res = await get('/users/current.json', null, {
         Authorization : 'Basic ' + btoa(`${login}:${password}`)
     });
 
-    return user;
+    return res;
 }
 
 /**

@@ -38,12 +38,12 @@ const call = async (method = 'GET', url = '', params = {} , data = null, headers
     {
         return await res.json()
     } else {
-        return false;
+        return { error : true, status : res.status, text : res.statusText };
     }
 }
 
 const get = async (url, params, headers) => {
-    return call('GET', url, params, null,headers);
+    return await call('GET', url, params, null,headers);
 }
 
 export default get;
