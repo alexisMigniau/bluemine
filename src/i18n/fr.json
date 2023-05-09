@@ -12,6 +12,9 @@
         "register" : "Enregistrer",
         "confirmDelete" : "Confirmation de suppression"
     },
+    "error" : {
+        "network" : "Erreur réseau {{ code }} : {{ text }}"
+    },
     "action": {
         "addNewTask": "Ajouter une tâche",
         "addNewColumn": "Nouvelle colonne",

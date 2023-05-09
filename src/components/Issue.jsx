@@ -47,12 +47,12 @@ const RedmineLink = styled.a`
     transition : all 1s;
     &:hover {
         color : ${props => props.theme.colors.primaryFade};
-        scale: 1.1;
     }
 `
 
 const Label = styled.button`
     all: unset;
+    font-size : 12px;
     background-color: ${props => props.color};
     padding : 2px 10px 2px 10px;
     border-radius : 50px;
@@ -60,12 +60,12 @@ const Label = styled.button`
     transition : all 1s;
     &:hover {
         cursor: pointer;
-        scale: 1.1;
     }
 `
 
 const AssignedToLabel = styled.h4`
     margin : unset;
+    font-size : 12px;
     color : ${props => props.color};
     text-transform : uppercase;
 `
@@ -87,6 +87,10 @@ function Issue({issue}) {
         return colour;
     }
 
+    const truncate = (str, length = 25) => {
+        return str.length > length ? str.substring(0, length) + "..." : str;
+    }
+
     return (
         <div>
             <Draggable draggableId={`issue-${issue.id}`} index={issue.id} isDragDisabled={true}>
@@ -94,9 +98,9 @@ function Issue({issue}) {
                     <IssueContainer ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} isDrag={snapshot.isDragging}>
                         <IssueHeader>
                             <RedmineLink href={issue.link} target="_blank" title={t('issue.openTicket', {id : issue.id})}>#{issue.id}</RedmineLink>
-                            <Label color={getColor(issue.project.name) + "70"} title={t('issue.setFilterToProject', {project : issue.project.name})}>{issue.project.name}</Label>
+                            <Label color={getColor(issue.project.name) + "70"} title={t('issue.setFilterToProject', {project : issue.project.name})}>{truncate(issue.project.name)}</Label>
                         </IssueHeader>
-                        <IssueTitle>{issue.subject}</IssueTitle>
+                        <IssueTitle>{truncate(issue.subject, 70)}</IssueTitle>
                         <IssueFooter>
                             <Label color={getColor(issue.tracker.name) + "20"} title={t('issue.setFilterToTracker', {tracker : issue.tracker.name})}>{issue.tracker.name}</Label>
                             {issue.assigned_to && <AssignedToLabel title={issue.assigned_to.name} color={getColor(issue.assigned_to.name)}>{issue.assigned_to.name.match(/\b\w/g).join('')}</AssignedToLabel>}

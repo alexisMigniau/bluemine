@@ -4,7 +4,7 @@ import Issue from "./Issue"
 import VerticalScroll from "./basics/VerticalScroll";
 
 const ColumnContainer = styled.div`
-    width: 300px;
+    min-width: 300px;
     height: 100%;
 `
 

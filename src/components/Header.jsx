@@ -66,7 +66,7 @@ const ExpansiveButton = styled(HeaderButton)`
     width : auto;
     max-width : 30px;
     border-radius : 200px;
-    transition : all 0.5s;
+    transition : all 1s;
     &:hover {
         max-width : 300px;
     }
@@ -88,7 +88,12 @@ function Header() {
             <TitleContainer>
                 <BoardName>
                     <BoardTitle>{currentView.name}</BoardTitle>
-                    <HeaderButton size="S" color="primary"><FontAwesomeIcon icon={faChartSimple} />{issues.length}</HeaderButton>
+                    <HeaderButton size="S" color="primary"><FontAwesomeIcon icon={faChartSimple} />
+                        {issues.length === total ?
+                           issues.length :
+                           issues.length  + ' / '  +total
+                        }
+                    </HeaderButton>
                     <ExpansiveButton size="S" color="success" onClick={() => fetchIssues()}><FontAwesomeIcon icon={faArrowsRotate} spin={issues.length !== total}/>{t('common.sync')}</ExpansiveButton>
                     <ExpansiveButton size="S" color="warning" onClick={() => setShowEditViewModal(true)}><FontAwesomeIcon icon={faPen} />{t('common.edit')}</ExpansiveButton>
                     <ExpansiveButton size="S" color="error" onClick={removeCurrentView}><FontAwesomeIcon icon={faTrash} />{t('common.delete')}</ExpansiveButton>
