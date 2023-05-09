@@ -93,6 +93,10 @@ const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], 
             params.push([`op[${field}]`, '='])
 
             value.forEach((id) => params.push([`v[${field}][]`, id]))
+        } else if(field === 'status_id')
+        {
+            params.push(['f[]', field])
+            params.push([`op[${field}]`, 'o'])
         }
     })
 
