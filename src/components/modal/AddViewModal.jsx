@@ -7,7 +7,7 @@ import ViewForm from "../form/ViewForm";
 function AddViewModal(props) {
     const { t } = useTranslation();
 
-    const { addView } = useContext(ViewContext);
+    const { addView, currentView } = useContext(ViewContext);
 
     const handleSubmit = (view) => {
        
@@ -20,7 +20,7 @@ function AddViewModal(props) {
     }
 
     return (
-        <Modal {...props} width={"80%"} onClose={onCloseCustom} title={t("view.form.addView")}>
+        <Modal {...props} width={"80%"} onClose={onCloseCustom} title={currentView ? t("view.form.addView") : t("view.form.createYourFirstView")}>
             <ViewForm onSubmit={handleSubmit}/>
         </Modal>
     )

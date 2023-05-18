@@ -29,6 +29,7 @@
     "view": {
         "form" : {
             "addView": "Ajouter une vue",
+            "createYourFirstView" : "Créer votre première vue",
             "editView": "Modifier la vue",
             "name" : "Nom",
             "namePlaceHolder" : "ex. Ligeo gestion"

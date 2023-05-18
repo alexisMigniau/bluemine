@@ -80,13 +80,13 @@ function Header() {
 
     const [showEditViewModal, setShowEditViewModal] = useState(false)
 
-    return currentView && (
+    return (
         <HeaderDiv>
             <SliderTop>
                 <Logo src={logoLight} alt="Kanban logo"/>
             </SliderTop>
             <TitleContainer>
-                <BoardName>
+               {currentView && <BoardName>
                     <BoardTitle>{currentView.name}</BoardTitle>
                     <HeaderButton size="S" color="primary"><FontAwesomeIcon icon={faChartSimple} />
                         {issues.length === total ?
@@ -98,7 +98,8 @@ function Header() {
                     <ExpansiveButton size="S" color="warning" onClick={() => setShowEditViewModal(true)}><FontAwesomeIcon icon={faPen} />{t('common.edit')}</ExpansiveButton>
                     <ExpansiveButton size="S" color="error" onClick={removeCurrentView}><FontAwesomeIcon icon={faTrash} />{t('common.delete')}</ExpansiveButton>
                 </BoardName>
-                {currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
+                }
+                {currentView && currentView.projects && <ResumeView projectAuto={currentView.projects.auto} projectsManual={currentView.projects.manual} trackers={currentView.trackers} status={currentView.status}/>}
             </TitleContainer>
             <EditViewModal show={showEditViewModal} onClose={() => setShowEditViewModal(false)}/>
         </HeaderDiv>

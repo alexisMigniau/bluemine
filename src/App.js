@@ -23,8 +23,6 @@ const Content = styled.div`
 
 function ViewContainer() {
   
-  const { currentView } = useContext(ViewContext);
-
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
@@ -38,7 +36,7 @@ function ViewContainer() {
     setShowLoginModal(true)
   }
 
-  return currentView && (
+  return (
     <AppContainer>
       <Header/>
       <Content>

@@ -21,20 +21,10 @@ const ViewProvider = ({children}) => {
 
     // Création des localStorage de base
     useEffect(() => {
-        if(localStorage.getItem('views') === null) {
-            const defaultView = {
-                name : "Vue par défaut",
-                projects : {
-                    auto : "",
-                    manual : []
-                },
-                trackers : [],
-                status : []
-            }
-            setCurrentView(defaultView)
-            setViews([defaultView])
-        } else {
-            const tmp = JSON.parse(localStorage.getItem('views'))
+        const storedValue = localStorage.getItem('views')
+           
+        if(storedValue !== null) {
+            const tmp = JSON.parse(storedValue)
             setViews(tmp)
             if(localStorage.getItem('lastView') === null) {
                 setCurrentView(tmp[0])
@@ -46,9 +36,7 @@ const ViewProvider = ({children}) => {
 
     // Enregsitrement des vue dans le storage
     useEffect(() => {
-        if(views.length > 0) {
-            localStorage.setItem('views', JSON.stringify(views))
-        }
+        localStorage.setItem('views', JSON.stringify(views))
     }, [views]);
 
     useEffect(() => {
@@ -58,6 +46,8 @@ const ViewProvider = ({children}) => {
 
             // Fetch des issues en utilisant la vue courante
             fetchIssues()
+        } else {
+            setColumn([])
         }
     }, [currentView])
 

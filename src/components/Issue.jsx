@@ -18,6 +18,7 @@ const IssueContainer = styled.div`
         background-color: ${props => props.theme.colors.backgroundSecondary};
     }
     max-width: 300px;
+    user-select: none;
 `
 
 const IssueTitle = styled.h4`
