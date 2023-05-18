@@ -47,7 +47,6 @@ const RedmineLink = styled.a`
     transition : all 1s;
     &:hover {
         color : ${props => props.theme.colors.primaryFade};
-        scale: 1.1;
     }
 `
 
@@ -88,7 +87,7 @@ function Issue({issue}) {
         return colour;
     }
 
-    const truncate = (str, length = 30) => {
+    const truncate = (str, length = 25) => {
         return str.length > length ? str.substring(0, length) + "..." : str;
     }
 
