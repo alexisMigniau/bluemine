@@ -20,7 +20,7 @@ function AddViewModal(props) {
     }
 
     return (
-        <Modal {...props} width={"80%"} onClose={onCloseCustom} title={currentView ? t("view.form.addView") : t("view.form.createYourFirstView")}>
+        <Modal {...props} width={"80%"} canClose={currentView ? true : false} onClose={onCloseCustom} title={currentView ? t("view.form.addView") : t("view.form.createYourFirstView")}>
             <ViewForm onSubmit={handleSubmit}/>
         </Modal>
     )

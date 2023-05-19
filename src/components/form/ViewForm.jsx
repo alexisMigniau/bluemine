@@ -5,9 +5,11 @@ import StatusSelect from "../selector/StatusSelect";
 import ResumeView from "../ResumeView";
 import Input from "../basics/Input";
 import Button from "../basics/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { getIssues, searchAll } from "../../service/api";
+import Span from "../basics/Span";
 
 const Resume = styled.h3`
     color: ${props => props.theme.colors.textPrimary};
@@ -40,6 +42,13 @@ const LabelCheckBox = styled.label`
     color : ${props => props.theme.colors.textPrimary};
 `
 
+const ResumeContainer = styled.div`
+    background-color : ${props => props.theme.colors.stroke};
+    padding : 1px 10px 10px 20px;
+    margin-top : 20px;
+    border-radius : 10px;
+`
+
 function ViewForm ({view = {}, onSubmit}) {
 
     const { t } = useTranslation();
@@ -54,6 +63,8 @@ function ViewForm ({view = {}, onSubmit}) {
     const [assignedToMe, setAssignedToMe] = useState(view.assignedToMe ?? false)
 
     const [errors, setErrors] = useState({})
+
+    const [totalIssues, setTotalIssues] = useState(0)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -99,6 +110,31 @@ function ViewForm ({view = {}, onSubmit}) {
     const handleAssignedToMe = (e) => {
         setAssignedToMe(e.target.checked)
     }
+
+    const countIssues = async () => {
+        // Si il y a une valeur dans projetAuto alors on chercher les projets avec ce nom
+        let projects_ids = projectsManual.map(t => t.id)
+
+        if(projectAuto) {
+            let searched_project = await searchAll(projectAuto, 'projects', 100);
+            projects_ids.push(...searched_project.results.map(s => s.id))
+        }
+
+        let assigned = []
+
+        if(assignedToMe)
+        {
+            assigned.push("me")
+        }
+
+        // Fetch des issues
+        let response = await getIssues(projects_ids, trackers.map(t => t.id), status.map(s => s.id), assigned)
+        setTotalIssues(response.total_count)
+    }
+
+    useEffect(() => {
+        countIssues()
+    }, [projectAuto, projectsManual, trackers, status, assignedToMe])
 
     return (
         <form onSubmit={handleSubmit}>
@@ -162,8 +198,10 @@ function ViewForm ({view = {}, onSubmit}) {
                 </TabPanel>
             </Tabs>
         
-            <Resume>En résumé</Resume>
-            <ResumeView projectAuto={projectAuto} projectsManual={projectsManual} trackers={trackers} status={status}/>
+            <ResumeContainer>
+                <Resume>En résumé : <Span>{totalIssues}</Span> tickets avec les filtres séléctionnés</Resume>
+                <ResumeView projectAuto={projectAuto} projectsManual={projectsManual} trackers={trackers} status={status}/>
+            </ResumeContainer>
             <ConfirmButton size="S" type="submit" onClick={handleSubmit}>{ t("common.register")}</ConfirmButton>
         </form>
     )
