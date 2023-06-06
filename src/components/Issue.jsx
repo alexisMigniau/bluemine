@@ -81,7 +81,7 @@ function Issue({issue}) {
             hash = str.charCodeAt(i) + ((hash << 5) - hash);
         }
         var colour = '#';
-        for (var i = 0; i < 3; i++) {
+        for (i = 0; i < 3; i++) {
             var value = (hash >> (i * 8)) & 0xFF;
             colour += ('00' + value.toString(16)).substr(-2);
         }
@@ -104,7 +104,7 @@ function Issue({issue}) {
                         <IssueTitle>{truncate(issue.subject, 70)}</IssueTitle>
                         <IssueFooter>
                             <Label color={getColor(issue.tracker.name) + "20"} title={t('issue.setFilterToTracker', {tracker : issue.tracker.name})}>{issue.tracker.name}</Label>
-                            {issue.assigned_to && <AssignedToLabel title={issue.assigned_to.name} color={getColor(issue.assigned_to.name)}>{issue.assigned_to.name.match(/\b\w/g).join('')}</AssignedToLabel>}
+                            {issue.assigned_to && <AssignedToLabel title={issue.assigned_to.name} color={getColor(issue.assigned_to.name)}>{issue.assigned_to.name.replaceAll('_','').match(/\b\w/g).join('')}</AssignedToLabel>}
                         </IssueFooter>
                     </IssueContainer>
                 )}

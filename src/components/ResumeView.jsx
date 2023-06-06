@@ -5,6 +5,7 @@ const Description = styled.p`
     margin-top: 5px;
     margin-bottom: 5px;
     color: ${props => props.theme.colors.grey};
+    font-size :  ${props => props.theme.fontSizes.medium};
 `
 
 function ResumeView ({projectAuto = "", projectsManual = [], trackers = [], status = []}) {

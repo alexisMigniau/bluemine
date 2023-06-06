@@ -55,6 +55,11 @@ const BoardItem = styled(Button)`
     min-height: 48px;
 `
 
+const BoardButton = styled(BoardItem)`
+    padding-left : 20px;
+    font-size : ${props => props.theme.fontSizes.medium};
+`
+
 const AddViewButton = styled(BoardItem)`
     color: ${props => props.theme.colors.primary};
 `
@@ -133,10 +138,10 @@ function Sidebar({ onLogout }) {
                 <BoardList>
                     <ScrollList hover={true} color={theme.colors.backgroundSecondary}>
                         {views && views.map(view => (
-                            <BoardItem key={view.name} disabled={currentView.name === view.name} onClick={() => setCurrentView(view)}>
+                            <BoardButton key={view.name} disabled={currentView.name === view.name} onClick={() => setCurrentView(view)}>
                                 <BoardLogo fill={currentView.name === view.name ? theme.colors.textPrimary : theme.colors.grey}/>
                                 {view.name}
-                            </BoardItem>
+                            </BoardButton>
                         ))}
                     </ScrollList>
                     <AddViewButton onClick={handleAddView}>
