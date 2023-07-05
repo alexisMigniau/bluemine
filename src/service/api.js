@@ -106,4 +106,13 @@ const getIssues = async (projects_ids = [], trackers_ids = [], status_ids = [], 
     return await get('/issues.json', params);
 }
 
-export {getUser, getProjects, getTrackers, getStatus, getIssues,searchAll};
+/**
+ * Fetch une issue via son ID
+ * @param {int} id
+ * @return issue
+ */
+const getIssue = async (id) => {
+    return await get(`/issues/${id}.json`,  {'include' : 'allowed_statuses'});
+}
+
+export {getUser, getProjects, getTrackers, getStatus, getIssues, getIssue ,searchAll};

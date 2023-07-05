@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import Column from "./Column"
 import VerticalScroll from "./basics/VerticalScroll";
+import { getIssue } from "../service/api";
 
 const List = styled(VerticalScroll)`
     display: flex;
@@ -19,15 +20,15 @@ const List = styled(VerticalScroll)`
 function Board() {
     const { column } = useContext(ViewContext);
 
-    const handleDragEnd = ({ source, destination }) => {
-        if(source && destination) {
-           
-        }
-    };
+    const handleDragStart = async (item) => {
+        // On va chercher les statuts disponibles pour ce ticket
+        const res = await getIssue(item.source.index);
+        console.log(res)
+    }
 
     return (
         <List>
-            <DragDropContext onDragEnd={handleDragEnd}>
+            <DragDropContext onDragStart={handleDragStart}>
                 {column && column.map(({status, issues}) => (
                     <Column key={`${status.name}-${status.id}`} status={status} issues={issues} />
                 ))}
